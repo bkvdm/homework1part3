@@ -18,7 +18,12 @@ public class FacultyServiceImpl implements FacultyService{
     }
 
     @Override
-    public Faculty findFaculty(long id, Faculty faculty) {
+    public Faculty findFaculty(long id) {
+        return faculties.get(id);
+    }
+
+    @Override
+    public Faculty editFaculty(long id, Faculty faculty) {
         if (!faculties.containsKey(id)) {
             return null;
         }

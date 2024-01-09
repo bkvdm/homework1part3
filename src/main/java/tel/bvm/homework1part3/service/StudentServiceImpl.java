@@ -18,7 +18,12 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student findStudent(long id, Student student) {
+    public Student findStudent(long id) {
+        return students.get(id);
+    }
+
+    @Override
+    public Student editStudent(long id, Student student) {
         if (!students.containsKey(id)) {
             return null;
         }

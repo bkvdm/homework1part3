@@ -3,7 +3,7 @@ package tel.bvm.homework1part3.model;
 import java.util.Objects;
 
 public class Student {
-    private long id;
+    private Long id;
     private String name;
     private int age;
 
