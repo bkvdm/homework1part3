@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.service.FacultyService;
 
+@RestController
+@RequestMapping("/faculty")
 public class FacultyController {
     private final FacultyService facultyService;
 
