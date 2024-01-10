@@ -1,8 +1,14 @@
 package tel.bvm.homework1part3.model;
 
+import jakarta.persistence.Entity;
+
 import java.util.Objects;
 
+@Entity
 public class Faculty {
+
+//        @Id
+//        @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String color;
