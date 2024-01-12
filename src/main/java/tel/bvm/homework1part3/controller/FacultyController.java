@@ -34,4 +34,9 @@ public class FacultyController {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping()
+    public List<Faculty> getAllFaculties() {
+        return facultyService.findAllFaculties();
+    }
 }

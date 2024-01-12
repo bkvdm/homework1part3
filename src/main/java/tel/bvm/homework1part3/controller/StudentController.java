@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.service.StudentService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -43,5 +45,10 @@ public class StudentController {
     public ResponseEntity<Void> deleteStudent(@PathVariable long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping()
+    public List<Student> getAllStudents() {
+        return studentService.fingAllStudents();
     }
 }
