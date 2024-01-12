@@ -29,7 +29,7 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Faculty findFaculty(long id) {
-        return facultyRepository.getById(id);
+        return facultyRepository.findById(id).get();
 //        return faculties.get(id);
     }
 

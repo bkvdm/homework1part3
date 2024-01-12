@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student findStudent(long id) {
 //        return students.get(id);
-        return studentRepository.getById(id);
+        return studentRepository.findById(id).get();
     }
 
     @Override

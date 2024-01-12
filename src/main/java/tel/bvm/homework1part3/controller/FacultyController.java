@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tel.bvm.homework1part3.model.Faculty;
+import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.service.FacultyService;
 
 import java.util.List;
@@ -20,6 +21,15 @@ public class FacultyController {
     @PostMapping
     public Faculty addFaculty(@RequestBody Faculty faculty) {
         return facultyService.addFaculty(faculty);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Faculty> getStudentInfo(@PathVariable long id) {
+        Faculty faculty = facultyService.findFaculty(id);
+        if (faculty == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(faculty);
     }
 
     @PutMapping("{id}")
