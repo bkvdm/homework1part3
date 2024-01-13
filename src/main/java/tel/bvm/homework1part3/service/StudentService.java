@@ -14,5 +14,6 @@ public interface StudentService {
 
     void deleteStudent(long id);
 
-    List<Student> fingAllStudents();
+    List<Student> findAllStudents();
+
 }

@@ -49,6 +49,6 @@ public class StudentController {
 
     @GetMapping()
     public List<Student> getAllStudents() {
-        return studentService.fingAllStudents();
+        return studentService.findAllStudents();
     }
 }
