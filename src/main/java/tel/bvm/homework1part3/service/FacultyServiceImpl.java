@@ -55,6 +55,12 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public List<Faculty> findByNameAndColorContaining(String name, String color) {
-        return facultyRepository.findByNameAndColorContaining(name, color);
+        if (color.isEmpty()) {
+            return facultyRepository.findByNameContaining(name);
+        } else if (name.isEmpty()) {
+            return facultyRepository.findByColorContaining(color);
+        } else {
+            return facultyRepository.findByNameAndColorContaining(name, color);
+        }
     }
 }
