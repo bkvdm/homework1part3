@@ -52,18 +52,18 @@ public class StudentController {
         return studentService.findAllStudents();
     }
 
-    @GetMapping()
+    @GetMapping("{findByAgeBetween}")
     public List<Student> findByAgeBetween(@RequestParam Integer from, @RequestParam Integer to) {
         return studentService.findByAgeBetween(from, to);
     }
 
-    @GetMapping()
+    @GetMapping("{findByAgeInclusive}")
     public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(@RequestParam Integer lowerBound, @RequestParam Integer upperBound) {
         return studentService.findByAgeLessThanEqualAndGreaterThanEqual(lowerBound, upperBound);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(@RequestParam Integer from, @RequestParam Integer to, @RequestParam String signInclusionBorders) {
-        return studentService.findByAgeIncludeBoundariesInSearchOrNo(from, to, signInclusionBorders);
-    }
+//    @GetMapping()
+//    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(@RequestParam Integer from, @RequestParam Integer to, @RequestParam String signInclusionBorders) {
+//        return studentService.findByAgeIncludeBoundariesInSearchOrNo(from, to, signInclusionBorders);
+//    }
 }

@@ -21,7 +21,7 @@ public interface StudentService {
 
     List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);
 
-    ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders);
+//    ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders);
 
 //    List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to, String signInclusionBorders);
 //    List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);
