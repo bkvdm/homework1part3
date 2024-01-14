@@ -53,17 +53,17 @@ public class StudentController {
     }
 
     @GetMapping()
-    public List<Student> findByAgeBetween(Integer from, Integer to) {
+    public List<Student> findByAgeBetween(@RequestParam Integer from, @RequestParam Integer to) {
         return studentService.findByAgeBetween(from, to);
     }
 
     @GetMapping()
-    public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer lowerBound, Integer upperBound) {
+    public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(@RequestParam Integer lowerBound, @RequestParam Integer upperBound) {
         return studentService.findByAgeLessThanEqualAndGreaterThanEqual(lowerBound, upperBound);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
+    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(@RequestParam Integer from, @RequestParam Integer to, @RequestParam String signInclusionBorders) {
         return studentService.findByAgeIncludeBoundariesInSearchOrNo(from, to, signInclusionBorders);
     }
 }

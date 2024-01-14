@@ -53,17 +53,17 @@ public class FacultyController {
     }
 
     @GetMapping()
-    public List<Faculty> findByNameContaining(String name) {
+    public List<Faculty> findByNameContaining(@RequestParam String name) {
         return facultyService.findByNameContaining(name);
     }
 
     @GetMapping()
-    public List<Faculty> findByColorContaining(String color) {
+    public List<Faculty> findByColorContaining(@RequestParam String color) {
         return facultyService.findByColorContaining(color);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Faculty>> findByNameColorContaining(String name, String color) {
+    public ResponseEntity<List<Faculty>> findByNameColorContaining(@RequestParam String name, @RequestParam String color) {
         return facultyService.findByNameAndColorContaining(name, color);
     }
 }
