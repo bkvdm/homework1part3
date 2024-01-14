@@ -47,8 +47,18 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findByAgeBetween(Integer from, Integer to) {
         return studentRepository.findByAgeBetween(from, to);
     }
+
     @Override
     public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to) {
-        return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
+        return studentRepository.findByAgeBetween(from, to);
+    }
+
+    @Override
+    public List<Student> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
+        if (signInclusionBorders.isEmpty()) {
+            return studentRepository.findByAgeBetween(from, to);
+        } else {
+            return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
+        }
     }
 }

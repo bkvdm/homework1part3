@@ -64,10 +64,6 @@ public class StudentController {
 
     @GetMapping()
     public List<Student> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
-        if (signInclusionBorders.isEmpty()) {
-            return studentService.findByAgeBetween(from, to);
-        } else {
-            return studentService.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
-        }
+        return studentService.findByAgeIncludeBoundariesInSearchOrNo(from, to, signInclusionBorders);
     }
 }
