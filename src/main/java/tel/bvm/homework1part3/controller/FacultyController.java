@@ -63,7 +63,7 @@ public class FacultyController {
     }
 
     @GetMapping("{findByNameAndColor}")
-    public ResponseEntity<List<Faculty>> findByNameColorContaining(@RequestParam String name, @RequestParam String color) {
+    public ResponseEntity<List<Faculty>> findByNameColorContaining(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         return facultyService.findByNameAndColorContaining(name, color);
     }
 }

@@ -53,12 +53,12 @@ public class StudentController {
     }
 
     @GetMapping("{findByAgeBetween}")
-    public List<Student> findByAgeBetween(@RequestParam Integer from, @RequestParam Integer to) {
+    public List<Student> findByAgeBetween(@RequestParam(required = false) Integer from, @RequestParam(required = false) Integer to) {
         return studentService.findByAgeBetween(from, to);
     }
 
     @GetMapping("{findByAgeInclusive}")
-    public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(@RequestParam Integer lowerBound, @RequestParam Integer upperBound) {
+    public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(@RequestParam(required = false) Integer lowerBound, @RequestParam(required = false) Integer upperBound) {
         return studentService.findByAgeLessThanEqualAndGreaterThanEqual(lowerBound, upperBound);
     }
 
