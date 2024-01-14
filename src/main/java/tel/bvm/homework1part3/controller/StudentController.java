@@ -52,9 +52,19 @@ public class StudentController {
         return studentService.findAllStudents();
     }
 
-//    @PostMapping
-//    public Student addStudent(@RequestBody Student student) {
-//        return studentService.addStudent(student);
-//    }
+    @GetMapping()
+    public List<Student> findByAgeBetween(Integer from, Integer to) {
+        return studentService.findByAgeBetween(from, to);
+    }
+
+    @GetMapping()
+    public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer lowerBound, Integer upperBound) {
+        return studentService.findByAgeLessThanEqualAndGreaterThanEqual(lowerBound, upperBound);
+    }
+
+    @GetMapping()
+    public List<Student> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
+        return studentService.findByAgeBetween(from, to);
+    }
 
 }

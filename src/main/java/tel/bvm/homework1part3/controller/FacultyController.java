@@ -52,5 +52,13 @@ public class FacultyController {
         return facultyService.findAllFaculties();
     }
 
+    @GetMapping()
+    public List<Faculty> findByNameContaining(String name) {
+        return facultyService.findByNameContaining(name);
+    }
 
+    @GetMapping()
+    public List<Faculty> findByColorContaining(String color) {
+        return facultyService.findByColorContaining(color);
+    }
 }

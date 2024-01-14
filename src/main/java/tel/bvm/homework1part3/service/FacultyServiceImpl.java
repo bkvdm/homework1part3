@@ -44,7 +44,12 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty findByNameContaining(String name) {
+    public List<Faculty> findByNameContaining(String name) {
         return facultyRepository.findByNameContaining(name);
+    }
+
+    @Override
+    public List<Faculty> findByColorContaining(String color) {
+        return facultyRepository.findByColorContaining(color);
     }
 }
