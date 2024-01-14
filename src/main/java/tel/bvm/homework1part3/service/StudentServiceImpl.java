@@ -62,9 +62,8 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
             }
-
         } else if (Optional.ofNullable(from).isEmpty() && Optional.ofNullable(to).isPresent()) {
-            from = 0;
+            from = Integer.MIN_VALUE;
             return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
         } else if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isEmpty()) {
             to = Integer.MAX_VALUE;
