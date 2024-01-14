@@ -45,25 +45,25 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public List<Faculty> findByNameContaining(String name) {
-        return facultyRepository.findByNameContaining(name);
+    public List<Faculty> findByNameContainingIgnoreCase(String name) {
+        return facultyRepository.findByNameContainingIgnoreCase(name);
     }
 
     @Override
-    public List<Faculty> findByColorContaining(String color) {
-        return facultyRepository.findByColorContaining(color);
+    public List<Faculty> findByColorContainingIgnoreCase(String color) {
+        return facultyRepository.findByColorContainingIgnoreCase(color);
     }
 
     @Override
-    public ResponseEntity<List<Faculty>> findByNameAndColorContaining(String name, String color) {
+    public ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color) {
         if (color.trim().isEmpty() && name.trim().isEmpty()) {
             return ResponseEntity.ok(facultyRepository.findAll());
         } else if (color.trim().isEmpty()) {
-            return ResponseEntity.ok(facultyRepository.findByNameContaining(name));
+            return ResponseEntity.ok(facultyRepository.findByNameContainingIgnoreCase(name));
         } else if (name.trim().isEmpty()) {
-            return ResponseEntity.ok(facultyRepository.findByColorContaining(color));
+            return ResponseEntity.ok(facultyRepository.findByColorContainingIgnoreCase(color));
         } else {
-            return ResponseEntity.ok(facultyRepository.findByNameAndColorContaining(name, color));
+            return ResponseEntity.ok(facultyRepository.findByNameAndColorContainingIgnoreCase(name, color));
         }
     }
 }

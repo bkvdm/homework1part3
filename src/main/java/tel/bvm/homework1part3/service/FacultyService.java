@@ -16,9 +16,15 @@ public interface FacultyService {
     void deleteFaculty(long id);
 
     List<Faculty> findAllFaculties();
-    List<Faculty> findByNameContaining(String name);
 
-    List<Faculty> findByColorContaining(String color);
+    List<Faculty> findByNameContainingIgnoreCase(String name);
 
-    ResponseEntity<List<Faculty>> findByNameAndColorContaining(String name, String color);
+    List<Faculty> findByColorContainingIgnoreCase(String color);
+
+    ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color);
+//    List<Faculty> findByNameContainingIgnoreCase(String name);
+
+//    List<Faculty> findByColorContainingIgnoreCase(String color);
+
+//    ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color);
 }

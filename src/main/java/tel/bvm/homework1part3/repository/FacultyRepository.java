@@ -6,9 +6,9 @@ import tel.bvm.homework1part3.model.Faculty;
 import java.util.List;
 
 public interface FacultyRepository extends JpaRepository<Faculty, Long> {
-    List<Faculty> findByNameContaining(String name);
-    List<Faculty> findByColorContaining(String color);
-    List<Faculty> findByNameAndColorContaining(String name, String color);
+    List<Faculty> findByNameContainingIgnoreCase(String name);
+    List<Faculty> findByColorContainingIgnoreCase(String color);
+    List<Faculty> findByNameAndColorContainingIgnoreCase(String name, String color);
 }
 //    Добавить эндпоинт для поиска факультета по имени или цвету,
 //    игнорируя регистр, т. е. в GET-запросе будет передана строка,
