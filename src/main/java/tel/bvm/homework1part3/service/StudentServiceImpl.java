@@ -5,6 +5,7 @@ import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -50,15 +51,25 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to) {
-        return studentRepository.findByAgeBetween(from, to);
+        return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
     }
 
     @Override
     public List<Student> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
-        if (signInclusionBorders.isEmpty()) {
-            return studentRepository.findByAgeBetween(from, to);
-        } else {
+        if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isPresent()) {
+            if (signInclusionBorders.isEmpty()) {
+                return studentRepository.findByAgeBetween(from, to);
+            } else {
+                return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
+            }
+
+        } else if (Optional.ofNullable(from).isEmpty() && Optional.ofNullable(to).isPresent()) {
+            from = 0;
+            return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
+        } else if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isEmpty()) {
+            to = Integer.MAX_VALUE;
             return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
         }
+        return studentRepository.findAll();
     }
 }
