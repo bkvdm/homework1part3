@@ -15,4 +15,6 @@ public interface FacultyService {
     void deleteFaculty(long id);
 
     List<Faculty> findAllFaculties();
+
+    Faculty findByNameContaining(String name);
 }

@@ -16,4 +16,7 @@ public interface StudentService {
 
     List<Student> findAllStudents();
 
+    List<Student> findByAgeBetween(Integer from, Integer to);
+
+    List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);
 }

@@ -51,4 +51,10 @@ public class StudentController {
     public List<Student> getAllStudents() {
         return studentService.findAllStudents();
     }
+
+//    @PostMapping
+//    public Student addStudent(@RequestBody Student student) {
+//        return studentService.addStudent(student);
+//    }
+
 }

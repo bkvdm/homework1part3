@@ -51,4 +51,6 @@ public class FacultyController {
     public List<Faculty> getAllFaculties() {
         return facultyService.findAllFaculties();
     }
+
+
 }
