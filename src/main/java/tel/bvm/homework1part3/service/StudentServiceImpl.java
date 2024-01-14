@@ -1,5 +1,6 @@
 package tel.bvm.homework1part3.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
@@ -55,20 +56,20 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
+    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
         if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isPresent()) {
             if (signInclusionBorders.isEmpty()) {
-                return studentRepository.findByAgeBetween(from, to);
+                return ResponseEntity.ok(studentRepository.findByAgeBetween(from, to));
             } else {
-                return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
+                return ResponseEntity.ok(studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to));
             }
         } else if (Optional.ofNullable(from).isEmpty() && Optional.ofNullable(to).isPresent()) {
             from = Integer.MIN_VALUE;
-            return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
+            return ResponseEntity.ok(studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to));
         } else if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isEmpty()) {
             to = Integer.MAX_VALUE;
-            return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
+            return ResponseEntity.ok(studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to));
         }
-        return studentRepository.findAll();
+        return ResponseEntity.ok(studentRepository.findAll());
     }
 }

@@ -63,7 +63,7 @@ public class StudentController {
     }
 
     @GetMapping()
-    public List<Student> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
+    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
         return studentService.findByAgeIncludeBoundariesInSearchOrNo(from, to, signInclusionBorders);
     }
 }

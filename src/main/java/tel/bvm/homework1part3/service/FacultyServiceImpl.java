@@ -1,5 +1,6 @@
 package tel.bvm.homework1part3.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.repository.FacultyRepository;
@@ -54,16 +55,15 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public List<Faculty> findByNameAndColorContaining(String name, String color) {
-        if (color.isEmpty() && name.isEmpty()) {
-            if (color.isEmpty()) {
-                return facultyRepository.findByNameContaining(name);
-            } else if (name.isEmpty()) {
-                return facultyRepository.findByColorContaining(color);
-            } else {
-                return facultyRepository.findByNameAndColorContaining(name, color);
-            }
+    public ResponseEntity<List<Faculty>> findByNameAndColorContaining(String name, String color) {
+        if (color.trim().isEmpty() && name.trim().isEmpty()) {
+            return ResponseEntity.ok(facultyRepository.findAll());
+        } else if (color.trim().isEmpty()) {
+            return ResponseEntity.ok(facultyRepository.findByNameContaining(name));
+        } else if (name.trim().isEmpty()) {
+            return ResponseEntity.ok(facultyRepository.findByColorContaining(color));
+        } else {
+            return ResponseEntity.ok(facultyRepository.findByNameAndColorContaining(name, color));
         }
-        return facultyRepository.findAll();
     }
 }

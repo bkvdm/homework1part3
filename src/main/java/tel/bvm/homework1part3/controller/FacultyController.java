@@ -27,18 +27,18 @@ public class FacultyController {
     public ResponseEntity<Faculty> getStudentInfo(@PathVariable long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty != null) {
-        return ResponseEntity.ok(faculty);
+            return ResponseEntity.ok(faculty);
         }
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("{id}")
     public ResponseEntity<Faculty> editFaculty(@PathVariable long id, @RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         if (foundFaculty != null) {
-        return ResponseEntity.ok(foundFaculty);
+            return ResponseEntity.ok(foundFaculty);
         }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @DeleteMapping("{id}")
@@ -63,7 +63,7 @@ public class FacultyController {
     }
 
     @GetMapping()
-    public List<Faculty> findByNameColorContaining(String name, String color) {
+    public ResponseEntity<List<Faculty>> findByNameColorContaining(String name, String color) {
         return facultyService.findByNameAndColorContaining(name, color);
     }
 }

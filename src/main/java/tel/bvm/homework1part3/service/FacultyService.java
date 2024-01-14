@@ -1,5 +1,6 @@
 package tel.bvm.homework1part3.service;
 
+import org.springframework.http.ResponseEntity;
 import tel.bvm.homework1part3.model.Faculty;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface FacultyService {
 
     List<Faculty> findByColorContaining(String color);
 
-    List<Faculty> findByNameAndColorContaining(String name, String color);
+    ResponseEntity<List<Faculty>> findByNameAndColorContaining(String name, String color);
 }
