@@ -52,4 +52,9 @@ public class FacultyServiceImpl implements FacultyService {
     public List<Faculty> findByColorContaining(String color) {
         return facultyRepository.findByColorContaining(color);
     }
+
+    @Override
+    public List<Faculty> findByNameAndColorContaining(String name, String color) {
+        return facultyRepository.findByNameAndColorContaining(name, color);
+    }
 }

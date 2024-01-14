@@ -18,4 +18,6 @@ public interface FacultyService {
     List<Faculty> findByNameContaining(String name);
 
     List<Faculty> findByColorContaining(String color);
+
+    List<Faculty> findByNameAndColorContaining(String name, String color);
 }

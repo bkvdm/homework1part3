@@ -61,4 +61,9 @@ public class FacultyController {
     public List<Faculty> findByColorContaining(String color) {
         return facultyService.findByColorContaining(color);
     }
+
+    @GetMapping()
+    public List<Faculty> findByNameColorContaining(String name, String color) {
+        return facultyService.findByNameAndColorContaining(name, color);
+    }
 }
