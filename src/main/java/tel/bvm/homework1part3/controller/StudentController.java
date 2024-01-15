@@ -3,6 +3,7 @@ package tel.bvm.homework1part3.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.service.StudentService;
 
@@ -61,9 +62,9 @@ public class StudentController {
     public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(@RequestParam(required = false) Integer lowerBound, @RequestParam(required = false) Integer upperBound) {
         return studentService.findByAgeLessThanEqualAndGreaterThanEqual(lowerBound, upperBound);
     }
-
-//    @GetMapping()
-//    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(@RequestParam Integer from, @RequestParam Integer to, @RequestParam String signInclusionBorders) {
-//        return studentService.findByAgeIncludeBoundariesInSearchOrNo(from, to, signInclusionBorders);
-//    }
+    @GetMapping("{findByStudentOfFaculty}")
+    public Faculty findByStudentOfFaculty(@RequestParam(required = false) Long id, @RequestParam(required = false) String name) {
+        return studentService.findByStudentOfFaculty(id, name);
+    }
 }
+

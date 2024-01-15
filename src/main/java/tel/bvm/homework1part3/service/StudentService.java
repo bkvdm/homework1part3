@@ -1,6 +1,7 @@
 package tel.bvm.homework1part3.service;
 
 import org.springframework.http.ResponseEntity;
+import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 
 import java.util.List;
@@ -21,8 +22,9 @@ public interface StudentService {
 
     List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);
 
+    Faculty findByStudentOfFaculty(Long id, String name);
+}
 //    ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders);
 
 //    List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to, String signInclusionBorders);
 //    List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);
-}

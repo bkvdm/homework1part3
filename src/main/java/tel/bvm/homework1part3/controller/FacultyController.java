@@ -66,4 +66,9 @@ public class FacultyController {
     public ResponseEntity<List<Faculty>> findByNameColorContainingIgnoreCase(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         return facultyService.findByNameAndColorContainingIgnoreCase(name, color);
     }
+
+    @GetMapping("{findByFacultyOfStudent}")
+    public List<Student> findByFacultyOfStudent(@RequestParam(required = false) Long id, @RequestParam(required = false) String name, @RequestParam(required = false) String color) {
+        return facultyService.findByFacultyOfStudent(id, name, color);
+    }
 }

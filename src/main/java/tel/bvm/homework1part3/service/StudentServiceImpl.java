@@ -3,6 +3,7 @@ package tel.bvm.homework1part3.service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
@@ -63,6 +64,15 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentRepository.findByAgeBetween(from, to);
     }
+
+    @Override
+    public Faculty findByStudentOfFaculty(Long id, String name) {
+        if (Optional.ofNullable(studentRepository.findByIdOrNameIgnoreCase(id, name)).isEmpty()) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
+    }
+}
 //
 //    @Override
 //    public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to) {
@@ -86,4 +96,3 @@ public class StudentServiceImpl implements StudentService {
 //        }
 //        return ResponseEntity.ok(studentRepository.findAll());
 //    }
-}

@@ -1,11 +1,14 @@
 package tel.bvm.homework1part3.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tel.bvm.homework1part3.model.Faculty;
+import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.FacultyRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -65,5 +68,13 @@ public class FacultyServiceImpl implements FacultyService {
         } else {
             return ResponseEntity.ok(facultyRepository.findByNameAndColorContainingIgnoreCase(name, color));
         }
+    }
+
+    @Override
+    public List<Student> findByFacultyOfStudent(Long id, String name, String color) {
+        if (Optional.ofNullable(facultyRepository.findByIdOrNameOrColorIgnoreCase(id, name, color)).isEmpty()) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return facultyRepository.findByIdOrNameOrColorIgnoreCase(id, name, color).getStudents();
     }
 }
