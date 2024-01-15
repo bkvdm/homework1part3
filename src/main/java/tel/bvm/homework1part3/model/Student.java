@@ -13,16 +13,48 @@ public class Student {
     private int age;
 
     @ManyToOne
-    @JoinColumn(name = "idFaculty")
-    private String faculty;
+    @JoinColumn(name = "idfaculty")
+    private Faculty faculty;
 
     public Student() {
     }
 
-    public Student(Long id, String name, int age, String faculty) {
+    public Student(Long id, String name, int age, Faculty faculty) {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.faculty = faculty;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
 
@@ -44,7 +76,7 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", faculty='" + faculty + '\'' +
+                ", faculty=" + faculty +
                 '}';
     }
 }
