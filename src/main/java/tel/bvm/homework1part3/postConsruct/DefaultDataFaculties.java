@@ -10,13 +10,12 @@ public class DefaultDataFaculties {
 
     public Faculty facultyInfo (long id) {
 
-        Map<Long, Faculty> facultyMap = new HashMap<>();
-
         Faculty faculty1 = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", );
         Faculty faculty2 = new Faculty(2, "Гриффиндор (Gryffindor)", "Жёлтый (Yellow)", "й");
         Faculty faculty3 = new Faculty(3, "Пуффендуй (Hufflepuff)", "Зелёный (Green)", "й");
         Faculty faculty4 = new Faculty(4, "Слизерин (Slytherin)", "Фиолетовый (Purple)", "й");
 
+        Map<Long, Faculty> facultyMap = new HashMap<>();
         facultyMap.put(faculty1.getId(), faculty1);
         facultyMap.put(faculty2.getId(), faculty1);
         facultyMap.put(faculty3.getId(), faculty1);
