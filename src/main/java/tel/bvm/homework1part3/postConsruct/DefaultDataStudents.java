@@ -1,31 +1,52 @@
 package tel.bvm.homework1part3.postConsruct;
 
+import tel.bvm.homework1part3.model.Faculty;
+import tel.bvm.homework1part3.model.Student;
+
+import java.util.List;
+
+//import static tel.bvm.homework1part3.postConsruct.DefaultDataFaculties.faculty;
+
 public class DefaultDataStudents {
 
-//    1	Луна Лавгуд (Luna Lovegood)	25	Когневран (Ravenclaw)
-//2	Дин Томас (Dean Thomas)	78	Когневран (Ravenclaw)
-//3	Симус Финниган (Seamus Finnigan)	43	Пуффендуй (Hufflepuff)
-//4	Блейз Забини (Blaise Zabini)	67	Гриффиндор (Gryffindor)
-//5	Миллисента Булстроуд (Millicent Bulstrode)	89	Слизерин (Slytherin)
-//6	Панси Паркинсон (Pansy Parkinson)	93	Слизерин (Slytherin)
-//7	Чо Чанг (Cho Chang)	56	Слизерин (Slytherin)
-//8	Майкл Корнер (Michael Corner)	34	Когневран (Ravenclaw)
-//9	Роберт Хиллиард (Robert Hilliard)	100	Когневран (Ravenclaw)
-//10	Элеанор Брэнсток (Eleanor Branstock)	18	Когневран (Ravenclaw)
-//11	Кэти Белл (Katie Bell)	73	Пуффендуй (Hufflepuff)
-//12	Алисия Спиннет (Alicia Spinnet)	23	Гриффиндор (Gryffindor)
-//13	Анджелина Джонсон (Angelina Johnson)	64	Гриффиндор (Gryffindor)
-//14	Кэтти Бел (Kathy Bell)	83	Гриффиндор (Gryffindor)
-//15	Колин Криви (Colin Creevey)	49	Гриффиндор (Gryffindor)
-//16	Гарри Поттер (Harry Potter)	11	Гриффиндор (Gryffindor)
-//17	Гермиона Грейнджер (Hermione Granger)	11	Гриффиндор (Gryffindor)
-//18	Рон Уизли (Ron Weasley)	11	Гриффиндор (Gryffindor)
-//19	Драко Малфой (Draco Malfoy)	12	Гриффиндор (Gryffindor)
-//20	Невилл Лонгботтом (Neville Longbottom)	10	Слизерин (Slytherin)
-//21	Джинни Уизли (Ginny Weasley)	7	Пуффендуй (Hufflepuff)
-//22	Альбус Дамблдор (Albus Dumbledore)	115	Гриффиндор (Gryffindor)
-//23	Северус Снегг (Severus Snape)	38	Пуффендуй (Hufflepuff)
-//24	Филиус Флитвик (Filius Flitwick)	75	Когневран (Ravenclaw)
+    private DefaultDataFaculties defaultDataFaculties;
+
+    public DefaultDataStudents(DefaultDataFaculties defaultDataFaculties) {
+        this.defaultDataFaculties = defaultDataFaculties;
+    }
+
+
+    public List<Student> studentList(Faculty faculty) {
+
+
+
+        Student student = new Student(1L, "Луна Лавгуд (Luna Lovegood)", 25, defaultDataFaculties.facultyInfo(1));
+        Student student1 = new Student(2L, "Дин Томас(Dean Thomas)", 78, defaultDataFaculties.facultyInfo(1));
+        Student student2 = new Student(3L, "Симус Финниган(Seamus Finnigan)", 43, defaultDataFaculties.facultyInfo(3));
+        Student student3 = new Student(4L, "Блейз Забини(Blaise Zabini)", 67, defaultDataFaculties.facultyInfo(2));
+        Student student4 = new Student(5L, "Миллисента Булстроуд(Millicent Bulstrode)", 89, defaultDataFaculties.facultyInfo(4));
+        Student student5 = new Student(6L, "Панси Паркинсон(Pansy Parkinson)", 93, defaultDataFaculties.facultyInfo(4));
+        Student student6 = new Student(7L, "Чо Чанг(Cho Chang)", 56, defaultDataFaculties.facultyInfo(4));
+        Student student7 = new Student(8L, "Майкл Корнер(Michael Corner)", 34, defaultDataFaculties.facultyInfo(1));
+        Student student8 = new Student(9L, "Роберт Хиллиард(Robert Hilliard)", 100, defaultDataFaculties.facultyInfo(1));
+        Student student9 = new Student(10L, "Элеанор Брэнсток(Eleanor Branstock)", 18, defaultDataFaculties.facultyInfo(1));
+        Student student10 = new Student(11L, "Кэти Белл(Katie Bell)", 73, defaultDataFaculties.facultyInfo(3));
+        Student student11 = new Student(12L, "Алисия Спиннет(Alicia Spinnet)", 23, defaultDataFaculties.facultyInfo(2));
+        Student student12 = new Student(13L, "Анджелина Джонсон(Angelina Johnson)", 64, defaultDataFaculties.facultyInfo(4));
+        Student student13 = new Student(14L, "Кэтти Бел(Kathy Bell)", 83, defaultDataFaculties.facultyInfo(2));
+        Student student14 = new Student(15L, "Колин Криви(Colin Creevey)", 49, defaultDataFaculties.facultyInfo(2));
+        Student student15 = new Student(16L, "Гарри Поттер(Harry Potter)", 11, defaultDataFaculties.facultyInfo(2));
+        Student student16 = new Student(17L, "Гермиона Грейнджер(Hermione Granger)", 11, defaultDataFaculties.facultyInfo(2));
+        Student student17 = new Student(18L, "Рон Уизли(Ron Weasley)", 11, defaultDataFaculties.facultyInfo(2));
+        Student student18 = new Student(19L, "Драко Малфой(Draco Malfoy)", 12, defaultDataFaculties.facultyInfo(2));
+        Student student19 = new Student(20L, "Невилл Лонгботтом(Neville Longbottom)", 10, defaultDataFaculties.facultyInfo(4));
+        Student student20 = new Student(21L, "Джинни Уизли(Ginny Weasley)", 7, defaultDataFaculties.facultyInfo(3));
+        Student student21 = new Student(22L, "Альбус Дамблдор(Albus Dumbledore)", 115, defaultDataFaculties.facultyInfo(2));
+        Student student22 = new Student(23L, "Северус Снегг(Severus Snape)", 38, defaultDataFaculties.facultyInfo(3));
+        Student student23 = new Student(24L, "Филиус Флитвик(Filius Flitwick)", 75, defaultDataFaculties.facultyInfo(1));
+
+        return
+    }
 
 
 }
