@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
-    private FacultyRepository facultyRepository;
+    private final FacultyRepository facultyRepository;
 
     public FacultyServiceImpl(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
@@ -72,9 +72,9 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public List<Student> findByFacultyOfStudent(Long id, String name, String color) {
-        if (Optional.ofNullable(facultyRepository.findByIdOrNameOrColorIgnoreCase(id, name, color)).isEmpty()) {
+        if (Optional.ofNullable(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color)).isEmpty()) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return facultyRepository.findByIdOrNameOrColorIgnoreCase(id, name, color).getStudents();
+        return facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color).getStudents();
     }
 }
