@@ -13,23 +13,28 @@ public class DefaultDataFaculties {
         this.defaultDataStudents = defaultDataStudents;
     }
 
-    public Faculty facultyInfo (long id) {
+//    private final DefaultDataStudents defaultDataStudents = new DefaultDataStudents(defaultDataFaculties);
 
-        Faculty faculty1 = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", null);
+    Map<Long, Faculty> facultyMap = new HashMap<>();
+
+    public void facultyRegistry() {
+    Faculty faculty1 = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", null);
         faculty1.setStudents(defaultDataStudents.studentList(faculty1));
-        Faculty faculty2 = new Faculty(2, "Гриффиндор (Gryffindor)", "Жёлтый (Yellow)", null);
+    Faculty faculty2 = new Faculty(2, "Гриффиндор (Gryffindor)", "Жёлтый (Yellow)", null);
         faculty2.setStudents(defaultDataStudents.studentList(faculty2));
-        Faculty faculty3 = new Faculty(3, "Пуффендуй (Hufflepuff)", "Зелёный (Green)", null);
+    Faculty faculty3 = new Faculty(3, "Пуффендуй (Hufflepuff)", "Зелёный (Green)", null);
         faculty3.setStudents(defaultDataStudents.studentList(faculty3));
-        Faculty faculty4 = new Faculty(4, "Слизерин (Slytherin)", "Фиолетовый (Purple)", null);
+    Faculty faculty4 = new Faculty(4, "Слизерин (Slytherin)", "Фиолетовый (Purple)", null);
         faculty4.setStudents(defaultDataStudents.studentList(faculty4));
 
-        Map<Long, Faculty> facultyMap = new HashMap<>();
         facultyMap.put(faculty1.getId(), faculty1);
         facultyMap.put(faculty2.getId(), faculty1);
         facultyMap.put(faculty3.getId(), faculty1);
         facultyMap.put(faculty4.getId(), faculty1);
+    }
 
+    public Faculty facultyInfo(long id) {
+//        faculty1.setStudents(defaultDataStudents.studentList(faculty1));
         return facultyMap.get(id);
     }
 }
