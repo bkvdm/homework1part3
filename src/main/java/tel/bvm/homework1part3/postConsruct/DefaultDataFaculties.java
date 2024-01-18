@@ -1,10 +1,11 @@
 package tel.bvm.homework1part3.postConsruct;
 
+import org.springframework.stereotype.Component;
 import tel.bvm.homework1part3.model.Faculty;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Component
 public class DefaultDataFaculties {
 
     private final DefaultDataStudents defaultDataStudents;

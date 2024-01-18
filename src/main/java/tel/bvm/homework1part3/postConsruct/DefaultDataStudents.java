@@ -1,5 +1,6 @@
 package tel.bvm.homework1part3.postConsruct;
 
+import org.springframework.stereotype.Component;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 
@@ -9,12 +10,13 @@ import java.util.List;
 
 //import static tel.bvm.homework1part3.postConsruct.DefaultDataFaculties.faculty;
 
+@Component
 public class DefaultDataStudents {
 
     private DefaultDataStudents defaultDataStudents;
-    public DefaultDataStudents(DefaultDataStudents defaultDataStudents) {
-        this.defaultDataStudents = defaultDataStudents;
-    }
+//    public DefaultDataStudents(DefaultDataStudents defaultDataStudents) {
+//        this.defaultDataStudents = defaultDataStudents;
+//    }
     private final DefaultDataFaculties defaultDataFaculties = new DefaultDataFaculties(defaultDataStudents);
 
         Student student1 = new Student(1L, "Луна Лавгуд (Luna Lovegood)", 25, defaultDataFaculties.facultyInfo(1));

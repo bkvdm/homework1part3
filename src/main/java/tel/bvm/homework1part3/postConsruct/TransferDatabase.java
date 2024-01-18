@@ -2,6 +2,8 @@ package tel.bvm.homework1part3.postConsruct;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 
@@ -11,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
 
+@Component
 public class TransferDatabase {
 
     private final DefaultDataStudents defaultDataStudents;
