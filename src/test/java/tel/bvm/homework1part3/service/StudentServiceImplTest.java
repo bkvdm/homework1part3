@@ -9,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static tel.bvm.homework1part3.repository.DataConstants.*;
+
 @ExtendWith(MockitoExtension.class)
 class StudentServiceImplTest {
 
@@ -23,6 +25,7 @@ class StudentServiceImplTest {
 
     @BeforeEach
     void setUp() {
+
     }
 
     @Test

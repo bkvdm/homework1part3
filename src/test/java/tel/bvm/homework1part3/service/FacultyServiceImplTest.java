@@ -6,9 +6,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tel.bvm.homework1part3.model.Faculty;
+import tel.bvm.homework1part3.repository.DataConstants;
 import tel.bvm.homework1part3.repository.FacultyRepository;
+import static tel.bvm.homework1part3.repository.DataConstants.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class FacultyServiceImplTest {
 
@@ -23,6 +25,8 @@ class FacultyServiceImplTest {
 
     @BeforeEach
     void setUp() {
+
+
     }
 
     @Test
