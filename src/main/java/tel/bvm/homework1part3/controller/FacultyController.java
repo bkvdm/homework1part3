@@ -33,7 +33,7 @@ public class FacultyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Faculty> editFaculty(@PathVariable long id, @RequestBody Faculty faculty) {
+    public ResponseEntity<Faculty> editFaculty(@PathVariable Long id, @RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         if (foundFaculty != null) {
             return ResponseEntity.ok(foundFaculty);

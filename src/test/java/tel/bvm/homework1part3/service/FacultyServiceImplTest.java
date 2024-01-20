@@ -37,15 +37,14 @@ class FacultyServiceImplTest {
     void setUp() {
 
 
-
     }
 
     @Test
     void addFacultyVerify() {
         Mockito.when(facultyRepository.save(FACULTY_4)).thenReturn(FACULTY_4);
-        facultyServiceImpl.addFaculty(FACULTY_4);
+        Faculty expected = facultyServiceImpl.addFaculty(FACULTY_4);
         Mockito.verify(facultyRepository, Mockito.times(1)).save(FACULTY_4);
-        assertEquals(FACULTY_4, facultyServiceImpl.addFaculty(FACULTY_4));
+        assertEquals(expected, facultyServiceImpl.addFaculty(FACULTY_4));
     }
 
     @Test
@@ -62,7 +61,29 @@ class FacultyServiceImplTest {
     }
 
     @Test
-    void editFaculty() {
+    void editFacultyVerify() {
+        Mockito.when(facultyRepository.save(FACULTY_2)).thenReturn(FACULTY_2);
+        Faculty expected = facultyServiceImpl.editFaculty(2L, FACULTY_2);
+        Mockito.verify(facultyRepository, Mockito.times(1)).save(FACULTY_2);
+        assertEquals(expected, facultyServiceImpl.editFaculty(2L, FACULTY_2));
+    }
+
+    @Test
+    void editFacultyIdParameterExceptionVerify() {
+        Mockito.when(facultyServiceImpl.editFaculty(6L, null)).thenThrow(HttpClientErrorException.BadRequest.class);
+        assertThrows(HttpClientErrorException.BadRequest.class, () -> facultyServiceImpl.editFaculty(6L, null));
+    }
+
+    @Test
+    void editFacultyIdAndFacultyParameterExceptionVerify() {
+        Mockito.when(facultyServiceImpl.editFaculty(7L, FACULTY_MAP.get(7L))).thenThrow(HttpClientErrorException.BadRequest.class);
+        assertThrows(HttpClientErrorException.BadRequest.class, () -> facultyServiceImpl.editFaculty(7L, FACULTY_MAP.get(7L)));
+    }
+
+    @Test
+    void editFacultyFacultyParameterExceptionVerify() {
+        Mockito.when(facultyServiceImpl.editFaculty(null, FACULTY_MAP.get(7L))).thenThrow(HttpClientErrorException.BadRequest.class);
+        assertThrows(HttpClientErrorException.BadRequest.class, () -> facultyServiceImpl.editFaculty(null, FACULTY_MAP.get(7L)));
     }
 
     @Test
