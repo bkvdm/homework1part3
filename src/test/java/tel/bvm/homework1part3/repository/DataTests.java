@@ -1,9 +1,13 @@
-package tel.bvm.homework1part3.constants;
+package tel.bvm.homework1part3.repository;
 
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 
 import java.util.*;
+
 
 public class DataTests {
 
