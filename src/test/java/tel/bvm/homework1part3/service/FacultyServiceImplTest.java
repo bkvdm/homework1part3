@@ -33,11 +33,11 @@ class FacultyServiceImplTest {
     @Mock
     FacultyRepository facultyRepository;
 
-    @BeforeEach
-    void setUp() {
-
-
-    }
+//    @BeforeEach
+//    void setUp() {
+//
+//
+//    }
 
     @Test
     void addFacultyVerify() {
@@ -88,6 +88,9 @@ class FacultyServiceImplTest {
 
     @Test
     void deleteFaculty() {
+//        Mockito.doNothing().when(facultyRepository).deleteById(1L);
+        facultyRepository.delete(FACULTY_1);
+        Mockito.verify(facultyRepository, Mockito.times(1)).delete((FACULTY_1));
     }
 
     @Test
