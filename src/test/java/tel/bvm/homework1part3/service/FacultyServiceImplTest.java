@@ -1,8 +1,12 @@
 package tel.bvm.homework1part3.service;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -18,9 +22,11 @@ import tel.bvm.homework1part3.repository.FacultyRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,25 +95,44 @@ class FacultyServiceImplTest {
     }
 
     @Test
-    void deleteFaculty() {
+    void deleteFacultyVerify() {
 //        Mockito.doNothing().when(facultyRepository).deleteById(1L);
         facultyRepository.delete(FACULTY_1);
         Mockito.verify(facultyRepository, Mockito.times(1)).delete((FACULTY_1));
     }
 
     @Test
-    void findAllFaculties() {
+    void findAllFacultiesVerify() {
         Mockito.when(facultyServiceImpl.findAllFaculties()).thenReturn(FACULTY_LIST);
         facultyRepository.findAll();
         Mockito.verify(facultyRepository, Mockito.times(1)).findAll();
     }
 
-    @Test
-    void findByNameContainingIgnoreCase() {
+//    @Test
+//    void findByNameContainingIgnoreCase() {
+//        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)")).thenReturn(FACULTY_CONTAINS_NAME);
+//        facultyRepository.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
+//        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
+//    }
+
+    public static Stream<Arguments> argumentsStream() {
+        return Stream.of(Arguments.of("пУффE", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "пУффE")),
+                Arguments.of("hUfF", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "hUfF")),
+                Arguments.of("GryF", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "GryF")),
+                Arguments.of("cлИ", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "слИ")),
+                Arguments.of("КоГн", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "КоГн"))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("argumentsStream")
+    void findByNameContainingIgnoreCase(String fragment, List<Faculty> FILTERED_FACULTY) {
+        assertEquals(FILTERED_FACULTY, facultyServiceImpl.findByNameContainingIgnoreCase(fragment));
     }
 
     @Test
     void findByColorContainingIgnoreCase() {
+
     }
 
     @Test
@@ -116,5 +141,6 @@ class FacultyServiceImplTest {
 
     @Test
     void findByFacultyOfStudent() {
+
     }
 }

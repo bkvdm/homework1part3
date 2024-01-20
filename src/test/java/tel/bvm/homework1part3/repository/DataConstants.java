@@ -21,6 +21,18 @@ public class DataConstants {
 
     public static List<Faculty> FACULTY_LIST = new ArrayList<>(FACULTY_MAP.values());
 
+//    public static List<Faculty> FACULTY_CONTAINS_NAME = new ArrayList<>(List.of(FACULTY_3));
+
+    public static List<Faculty> filterByFragmentNameFaculty(List<Faculty> faculty, String fragment) {
+        List<Faculty> FILTERED_FACULTY = new ArrayList<>();
+        for (Faculty s : faculty) {
+            if (s.getName().toLowerCase().contains(fragment)) {
+                FILTERED_FACULTY.add(s);
+            }
+        }
+        return FILTERED_FACULTY;
+    }
+
     public static Student STUDENT_1 = new Student(1L, "Луна Лавгуд (Luna Lovegood)", 25, facultyInfo(1));
     public static Student STUDENT_2 = new Student(2L, "Дин Томас (Dean Thomas)", 78, facultyInfo(1));
     public static Student STUDENT_3 = new Student(3L, "Симус Финниган (Seamus Finnigan)", 43, facultyInfo(3));
