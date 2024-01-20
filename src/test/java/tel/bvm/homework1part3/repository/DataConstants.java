@@ -19,6 +19,8 @@ public class DataConstants {
             FACULTY_3.getId(), FACULTY_3,
             FACULTY_4.getId(), FACULTY_4));
 
+    public static List<Faculty> FACULTY_LIST = new ArrayList<>(FACULTY_MAP.values());
+
     public static Student STUDENT_1 = new Student(1L, "Луна Лавгуд (Luna Lovegood)", 25, facultyInfo(1));
     public static Student STUDENT_2 = new Student(2L, "Дин Томас (Dean Thomas)", 78, facultyInfo(1));
     public static Student STUDENT_3 = new Student(3L, "Симус Финниган (Seamus Finnigan)", 43, facultyInfo(3));

@@ -15,6 +15,8 @@ import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.repository.DataConstants;
 import tel.bvm.homework1part3.repository.FacultyRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -95,6 +97,9 @@ class FacultyServiceImplTest {
 
     @Test
     void findAllFaculties() {
+        Mockito.when(facultyServiceImpl.findAllFaculties()).thenReturn(FACULTY_LIST);
+        facultyRepository.findAll();
+        Mockito.verify(facultyRepository, Mockito.times(1)).findAll();
     }
 
     @Test
