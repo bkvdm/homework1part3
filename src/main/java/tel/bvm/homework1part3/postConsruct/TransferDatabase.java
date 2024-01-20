@@ -32,31 +32,9 @@ public class TransferDatabase {
 
     @PostConstruct
     void init() throws SQLException {
-        insertDataStudents();
         insertDataFaculties();
-    }
-
-    void insertDataStudents() throws SQLException {
-
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO STUDENT(ID, NAME, AGE) VALUES(?, ?, ?)")) {
-
-            for (Student student : defaultDataStudents.studentList) {
-                long id = student.getId();
-                String name = student.getName();
-                int age = student.getAge();
-//                Faculty faculty = student.getFaculty();
-
-                statement.setLong(1, id);
-                statement.setString(2, name);
-                statement.setInt(3, age);
-                statement.addBatch();
-            }
-
-            statement.executeBatch();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        insertDataStudents();
+//        insertDataIdConnect();
     }
 
     void insertDataFaculties() throws SQLException {
@@ -84,6 +62,53 @@ public class TransferDatabase {
             connection.close();
         }
     }
+
+    void insertDataStudents() throws SQLException {
+
+        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(
+//                "INSERT INTO STUDENT(ID, NAME, AGE) VALUES(?, ?, ?)")) {
+                "INSERT INTO STUDENT(ID, NAME, AGE, IdFACULTY) VALUES(?, ?, ?, ?)")) {
+
+            for (Student student : defaultDataStudents.studentList) {
+                long id = student.getId();
+                String name = student.getName();
+                int age = student.getAge();
+                long idFaculty = student.getFaculty().getId();
+//                Faculty faculty = student.getFaculty();
+
+                statement.setLong(1, id);
+                statement.setString(2, name);
+                statement.setInt(3, age);
+                statement.setLong(4, idFaculty);
+                statement.addBatch();
+            }
+
+            statement.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+//    void insertDataIdConnect() throws SQLException {
+//
+//        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(
+//                "INSERT INTO STUDENT(IDFACULTY) VALUES(?)")) {
+//
+//            for (Student student : defaultDataStudents.studentList) {
+//                long idFaculty = student.getFaculty().getId();
+//
+//                statement.setLong(4, idFaculty);
+//
+//                statement.addBatch();
+//            }
+//
+//            statement.executeBatch();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
 //            for(Faculty faculty : defaultDataFaculties.facultyMap){
 //                long id = faculty.getId();

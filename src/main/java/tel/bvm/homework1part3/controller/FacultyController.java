@@ -23,7 +23,7 @@ public class FacultyController {
         return facultyService.addFaculty(faculty);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Faculty> getStudentInfo(@PathVariable long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty != null) {
@@ -32,7 +32,7 @@ public class FacultyController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Faculty> editFaculty(@PathVariable long id, @RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         if (foundFaculty != null) {
@@ -41,7 +41,7 @@ public class FacultyController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFaculty(@PathVariable long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
@@ -52,22 +52,22 @@ public class FacultyController {
         return facultyService.findAllFaculties();
     }
 
-    @GetMapping("{findByName}")
+    @GetMapping("findByName/{findByName}")
     public List<Faculty> findByNameContainingIgnoreCase(@RequestParam String name) {
         return facultyService.findByNameContainingIgnoreCase(name);
     }
 
-    @GetMapping("{findByColor}")
+    @GetMapping("findByColor/{findByColor}")
     public List<Faculty> findByColorContainingIgnoreCase(@RequestParam String color) {
         return facultyService.findByColorContainingIgnoreCase(color);
     }
 
-    @GetMapping("{findByNameAndColor}")
+    @GetMapping("findByNameAndColor/{findByNameAndColor}")
     public ResponseEntity<List<Faculty>> findByNameColorContainingIgnoreCase(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         return facultyService.findByNameAndColorContainingIgnoreCase(name, color);
     }
 
-    @GetMapping("{findByFacultyOfStudent}")
+    @GetMapping("findByFacultyOfStudent/{findByFacultyOfStudent}")
     public List<Student> findByFacultyOfStudent(@RequestParam(required = false) Long id, @RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         return facultyService.findByFacultyOfStudent(id, name, color);
     }
