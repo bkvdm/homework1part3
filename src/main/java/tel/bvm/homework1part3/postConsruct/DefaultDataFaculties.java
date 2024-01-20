@@ -33,11 +33,6 @@ public class DefaultDataFaculties {
         faculty2.setStudents(defaultDataStudents.studentList(faculty2));
         faculty3.setStudents(defaultDataStudents.studentList(faculty3));
         faculty4.setStudents(defaultDataStudents.studentList(faculty4));
-
-//        facultyMap.put(faculty1.getId(), faculty1);
-//        facultyMap.put(faculty2.getId(), faculty2);
-//        facultyMap.put(faculty3.getId(), faculty3);
-//        facultyMap.put(faculty4.getId(), faculty4);
     }
 
 //        facultyRegistry();
@@ -52,3 +47,7 @@ public class DefaultDataFaculties {
 //            2	Гриффиндор (Gryffindor)	Жёлтый (Yellow)
 //            3	Пуффендуй (Hufflepuff)	Зелёный (Green)
 //            4	Слизерин (Slytherin)	Синий (Purple)
+//        facultyMap.put(faculty1.getId(), faculty1);
+//        facultyMap.put(faculty2.getId(), faculty2);
+//        facultyMap.put(faculty3.getId(), faculty3);
+//        facultyMap.put(faculty4.getId(), faculty4);

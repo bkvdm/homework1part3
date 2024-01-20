@@ -59,7 +59,7 @@ public class DefaultDataStudents {
                 studentList.add(student);
             }
         }
-defaultDataFaculties.facultyRegistry();
+        defaultDataFaculties.facultyRegistry();
         return studentsFaculty;
     }
 }
