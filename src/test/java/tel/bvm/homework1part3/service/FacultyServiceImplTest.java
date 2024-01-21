@@ -110,7 +110,7 @@ class FacultyServiceImplTest {
 
     @Test
     void findByNameContainingIgnoreCase() {
-        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)")).thenReturn(FACULTY_CONTAINS_NAME);
+        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)")).thenReturn(FACULTY_CONTAINS_NAME_3);
         facultyRepository.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
         Mockito.verify(facultyRepository, Mockito.times(1)).findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
     }
@@ -134,7 +134,7 @@ class FacultyServiceImplTest {
     ///
     @Test
     void findByColorContainingIgnoreCase() {
-        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Зелёный (Green)")).thenReturn(FACULTY_CONTAINS_NAME);
+        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Зелёный (Green)")).thenReturn(FACULTY_CONTAINS_NAME_3);
         facultyRepository.findByNameContainingIgnoreCase("Зелёный (Green)");
         Mockito.verify(facultyRepository, Mockito.times(1)).findByNameContainingIgnoreCase("Зелёный (Green)");
     }
@@ -155,15 +155,36 @@ class FacultyServiceImplTest {
         assertEquals(FILTERED_FACULTY, facultyServiceImpl.findByColorContainingIgnoreCase(fragment));
     }
 
+    @Test
+    void findByNameAndColorContainingIgnoreCase() {
+        Mockito.when(facultyRepository.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
+                FACULTY_1.getColor())).thenReturn(FACULTY_CONTAINS_NAME_1);
+        facultyServiceImpl.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
+                FACULTY_1.getColor());
+        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameAndColorContainingIgnoreCase("Когневран (Ravenclaw)", "Красный (Red)");
+    }
+//    @Test
+//    void findByNameAndColorContainingIgnoreCase1() {
+//        Mockito.when(facultyRepository.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
+//                FACULTY_1.getColor())).thenReturn(FACULTY_CONTAINS_NAME_1);
+//        facultyServiceImpl.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
+//                FACULTY_1.getColor());
+//        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameAndColorContainingIgnoreCase("Когневран (Ravenclaw)", "Красный (Red)");
+//    }
+//    @Test
+//    void findByNameAndColorContainingIgnoreCase() {
+//        Mockito.when(facultyServiceImpl.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
+//                FACULTY_1.getColor())).thenReturn(ResponseEntity.ok(FACULTY_CONTAINS_NAME_1));
+//        facultyRepository.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
+//                FACULTY_1.getColor());
+//        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameAndColorContainingIgnoreCase("Когневран (Ravenclaw)", "Красный (Red)");
+//    }
 
 //    @Test
 //    void findByColorContainingIgnoreCase() {
 //
 //    }
 
-    @Test
-    void findByNameAndColorContainingIgnoreCase() {
-    }
 
     @Test
     void findByFacultyOfStudent() {

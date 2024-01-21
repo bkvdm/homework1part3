@@ -21,7 +21,10 @@ public class DataConstants {
 
     public static List<Faculty> FACULTY_LIST = new ArrayList<>(FACULTY_MAP.values());
 
-    public static List<Faculty> FACULTY_CONTAINS_NAME = new ArrayList<>(List.of(FACULTY_3));
+    public static List<Faculty> FACULTY_CONTAINS_NAME_1 = new ArrayList<>(List.of(FACULTY_1));
+    public static List<Faculty> FACULTY_CONTAINS_NAME_2 = new ArrayList<>(List.of(FACULTY_2));
+    public static List<Faculty> FACULTY_CONTAINS_NAME_3 = new ArrayList<>(List.of(FACULTY_3));
+    public static List<Faculty> FACULTY_CONTAINS_NAME_4 = new ArrayList<>(List.of(FACULTY_4));
 
     public static List<Faculty> filterByFragmentNameFaculty(List<Faculty> faculty, String fragment) {
         List<Faculty> FILTERED_FACULTY = new ArrayList<>();
