@@ -197,7 +197,7 @@ class FacultyServiceImplTest {
 
 
     @Test
-    void findByFacultyOfStudent() {
+    void findByFacultyOfStudentVerify() {
 
     }
 }

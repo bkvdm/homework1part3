@@ -68,7 +68,7 @@ public class FacultyServiceImpl implements FacultyService {
             } else {
                 return ResponseEntity.ok(facultyRepository.findByNameAndColorContainingIgnoreCase(name, color));
             }
-        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 //    @Override
