@@ -35,6 +35,8 @@ import static tel.bvm.homework1part3.repository.DataConstants.*;
 
 @ExtendWith(MockitoExtension.class)
 class FacultyServiceImplTest {
+    @Mock
+    FacultyRepository facultyRepository;
 
     @InjectMocks
     FacultyServiceImpl facultyServiceImpl;
@@ -42,8 +44,6 @@ class FacultyServiceImplTest {
 //    @InjectMocks
 //    StudentServiceImpl studentServiceImpl;
 
-    @Mock
-    FacultyRepository facultyRepository;
 
 //    @BeforeEach
 //    void setUp() {

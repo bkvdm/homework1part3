@@ -75,7 +75,7 @@ public class DataConstants {
         return FACULTY_MAP.get(id);
     }
 
-    public List<Student> STUDENT_LIST = new ArrayList<>(Arrays.asList
+    public static List<Student> STUDENT_LIST = new ArrayList<>(Arrays.asList
             (STUDENT_1, STUDENT_2, STUDENT_3, STUDENT_4, STUDENT_5, STUDENT_6,
                     STUDENT_7, STUDENT_8, STUDENT_9, STUDENT_10, STUDENT_11,
                     STUDENT_12, STUDENT_13, STUDENT_14, STUDENT_15, STUDENT_16,
