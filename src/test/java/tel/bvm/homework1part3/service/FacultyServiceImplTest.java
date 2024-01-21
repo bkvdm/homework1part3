@@ -148,12 +148,12 @@ class FacultyServiceImplTest {
                 Arguments.of("pUR", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "pUR")),
                 Arguments.of("RE", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "RE")),
                 Arguments.of("ЖёЛ", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "ЖёЛ")),
-                Arguments.of("кр", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "кр"))
+                Arguments.of("крА", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "крА"))
         );
     }
 
     @ParameterizedTest
-    @MethodSource("argumentsStream")
+    @MethodSource("argumentsStreamColor")
     void findByColorContainingIgnoreCase(String fragment, List<Faculty> FILTERED_FACULTY) {
         assertEquals(FILTERED_FACULTY, facultyServiceImpl.findByColorContainingIgnoreCase(fragment));
     }
@@ -198,6 +198,7 @@ class FacultyServiceImplTest {
 
     @Test
     void findByFacultyOfStudentVerify() {
+//        Mockito.when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(FACULTY_1.getId(), FACULTY_1.getName(), FACULTY_1.getColor())).thenReturn(DataConstants.STUDENT_LIST)
 
     }
 }

@@ -75,14 +75,14 @@ public class DataConstants {
         return FACULTY_MAP.get(id);
     }
 
-    public List<Student> STUDENT_LIST = new ArrayList<>(Arrays.asList
+    public static List<Student> STUDENT_LIST = new ArrayList<>(Arrays.asList
             (STUDENT_1, STUDENT_2, STUDENT_3, STUDENT_4, STUDENT_5, STUDENT_6,
                     STUDENT_7, STUDENT_8, STUDENT_9, STUDENT_10, STUDENT_11,
                     STUDENT_12, STUDENT_13, STUDENT_14, STUDENT_15, STUDENT_16,
                     STUDENT_17, STUDENT_18, STUDENT_19, STUDENT_20, STUDENT_21,
                     STUDENT_22, STUDENT_23, STUDENT_24));
 
-    public List<Student> STUDENT_LIST(Faculty faculty) {
+    public static List<Student> STUDENT_LIST(Faculty faculty) {
         List<Student> studentsFaculty = new ArrayList<>();
 
         for (Student student : STUDENT_LIST) {
@@ -94,7 +94,7 @@ public class DataConstants {
         return studentsFaculty;
     }
 
-    public void facultyRegistry() {
+    public static void facultyRegistry() {
         FACULTY_1.setStudents(STUDENT_LIST(FACULTY_1));
         FACULTY_2.setStudents(STUDENT_LIST(FACULTY_2));
         FACULTY_3.setStudents(STUDENT_LIST(FACULTY_3));
