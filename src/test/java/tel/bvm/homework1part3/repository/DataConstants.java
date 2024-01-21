@@ -118,4 +118,24 @@ public class DataConstants {
         }
         return STUDENTS_FACULTY;
     }
+
+    public static List<Student> STUDENTS_AGE_BETWEEN(int from, int to) {
+
+        List<Student> STUDENT_LIST = new ArrayList<>(Arrays.asList
+                (STUDENT_1, STUDENT_2, STUDENT_3, STUDENT_4, STUDENT_5, STUDENT_6,
+                        STUDENT_7, STUDENT_8, STUDENT_9, STUDENT_10, STUDENT_11,
+                        STUDENT_12, STUDENT_13, STUDENT_14, STUDENT_15, STUDENT_16,
+                        STUDENT_17, STUDENT_18, STUDENT_19, STUDENT_20, STUDENT_21,
+                        STUDENT_22, STUDENT_23, STUDENT_24));
+        List<Student> STUDENTS_AGE_BETWEEN = new ArrayList<>();
+
+        for (Student student : STUDENT_LIST) {
+            if (student.getAge() > from && student.getAge() < to) {
+                STUDENTS_AGE_BETWEEN.add(student);
+            }
+        }
+        return STUDENTS_AGE_BETWEEN;
+    }
+
+
 }

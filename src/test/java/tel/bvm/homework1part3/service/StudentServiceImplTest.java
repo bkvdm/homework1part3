@@ -3,6 +3,9 @@ package tel.bvm.homework1part3.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -10,9 +13,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.HttpClientErrorException;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
+import tel.bvm.homework1part3.repository.DataConstants;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
@@ -83,16 +89,62 @@ class StudentServiceImplTest {
         Mockito.verify(studentRepository, Mockito.atLeastOnce()).findAll();
     }
 
-    @Test
-    void findByAgeBetween() {
-
+    public static Stream<Arguments> argumentsAgeBetween() {
+        return Stream.of(
+                Arguments.of(20, 50),
+                Arguments.of(30, 100),
+                Arguments.of(10, 19),
+                Arguments.of(100, 200),
+                Arguments.of(0, 17)
+        );
     }
 
-    @Test
-    void findByAgeLessThanEqualAndGreaterThanEqual() {
+    @ParameterizedTest
+    @MethodSource("argumentsAgeBetween")
+    void findByAgeBetweenVerify(int from, int to) {
+        Mockito.when(studentRepository.findByAgeBetween(from, to)).thenReturn(STUDENTS_AGE_BETWEEN(from, to));
+        assertEquals(STUDENTS_AGE_BETWEEN(from, to), studentServiceImpl.findByAgeBetween(from, to));
     }
 
     @Test
     void findByStudentOfFaculty() {
+
+        Mockito.when(studentRepository.findByIdOrNameIgnoreCase(STUDENT_1.getId(), STUDENT_1.getName())).thenReturn(STUDENT_1);
+        studentServiceImpl.findByStudentOfFaculty(STUDENT_1.getId(), STUDENT_1.getName());
+        Mockito.verify(studentRepository, Mockito.atLeastOnce()).findByIdOrNameIgnoreCase(1L, "Луна Лавгуд (Luna Lovegood)");
+
+        Mockito.when(studentRepository.findByIdOrNameIgnoreCase(null, STUDENT_15.getName())).thenReturn(STUDENT_15);
+        studentServiceImpl.findByStudentOfFaculty(null, STUDENT_15.getName());
+        Mockito.verify(studentRepository, Mockito.atLeastOnce()).findByIdOrNameIgnoreCase(null, "Колин Криви (Colin Creevey)");
+
+        Mockito.when(studentRepository.findByIdOrNameIgnoreCase(STUDENT_19.getId(), null)).thenReturn(STUDENT_19);
+        studentServiceImpl.findByStudentOfFaculty(STUDENT_19.getId(), null);
+        Mockito.verify(studentRepository, Mockito.atLeastOnce()).findByIdOrNameIgnoreCase(19L, null);
+
+//        Mockito.when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(null, FACULTY_2.getName(), FACULTY_2.getColor())).thenReturn(FACULTY_2);
+//        facultyServiceImpl.findByFacultyOfStudent(null, FACULTY_2.getName(), FACULTY_2.getColor());
+//        Mockito.verify(facultyRepository, Mockito.atLeastOnce()).findByIdOrNameOrColorContainingIgnoreCase(null, "Гриффиндор (Gryffindor)", "Жёлтый (Yellow)");
+//
+//        Mockito.when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(FACULTY_3.getId(), null, FACULTY_3.getColor())).thenReturn(FACULTY_3);
+//        facultyServiceImpl.findByFacultyOfStudent(FACULTY_3.getId(), null, FACULTY_3.getColor());
+//        Mockito.verify(facultyRepository, Mockito.atLeastOnce()).findByIdOrNameOrColorContainingIgnoreCase(3L, null, "Зелёный (Green)");
+//
+//        Mockito.when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(FACULTY_4.getId(), FACULTY_4.getName(), null)).thenReturn(FACULTY_4);
+//        facultyServiceImpl.findByFacultyOfStudent(FACULTY_4.getId(), FACULTY_4.getName(), null);
+//        Mockito.verify(facultyRepository, Mockito.atLeastOnce()).findByIdOrNameOrColorContainingIgnoreCase(4L, "Слизерин (Slytherin)", null);
+//
+//        Mockito.when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(FACULTY_1.getId(), null, null)).thenReturn(FACULTY_1);
+//        facultyServiceImpl.findByFacultyOfStudent(FACULTY_1.getId(), null, null);
+//        Mockito.verify(facultyRepository, Mockito.atLeastOnce()).findByIdOrNameOrColorContainingIgnoreCase(1L, null, null);
+//
+//        Mockito.when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(null, FACULTY_1.getName(), null)).thenReturn(FACULTY_1);
+//        facultyServiceImpl.findByFacultyOfStudent(null, FACULTY_1.getName(), null);
+//        Mockito.verify(facultyRepository, Mockito.atLeastOnce()).findByIdOrNameOrColorContainingIgnoreCase(null, "Когневран (Ravenclaw)", null);
+//
+//        Mockito.when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(null, null, FACULTY_1.getColor())).thenReturn(FACULTY_1);
+//        facultyServiceImpl.findByFacultyOfStudent(null, null, FACULTY_1.getColor());
+//        Mockito.verify(facultyRepository, Mockito.atLeastOnce()).findByIdOrNameOrColorContainingIgnoreCase(null, null, "Красный (Red)");
+
+
     }
 }
