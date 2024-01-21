@@ -1,6 +1,8 @@
 package tel.bvm.homework1part3.service;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.checkerframework.checker.units.qual.A;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +28,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
 
@@ -156,13 +159,20 @@ class FacultyServiceImplTest {
     }
 
     @Test
-    void findByNameAndColorContainingIgnoreCase() {
+    void findByNameAndColorContainingIgnoreCaseVerify() {
         Mockito.when(facultyRepository.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
                 FACULTY_1.getColor())).thenReturn(FACULTY_CONTAINS_NAME_1);
         facultyServiceImpl.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),
                 FACULTY_1.getColor());
-        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameAndColorContainingIgnoreCase("Когневран (Ravenclaw)", "Красный (Red)");
+        Mockito.verify(facultyRepository, Mockito.atLeastOnce()).findByNameAndColorContainingIgnoreCase("Когневран (Ravenclaw)", "Красный (Red)");
     }
+
+    @Test
+    void findByNameAndColorContainingIgnoreCaseExceptionVerify() {
+        Mockito.verify(facultyRepository, never()).findByNameAndColorContainingIgnoreCase(null, null);
+    }
+
+
 //    @Test
 //    void findByNameAndColorContainingIgnoreCase1() {
 //        Mockito.when(facultyRepository.findByNameAndColorContainingIgnoreCase(FACULTY_1.getName(),

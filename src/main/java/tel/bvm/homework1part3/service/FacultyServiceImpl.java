@@ -58,16 +58,31 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color) {
-        if (color.trim().isEmpty() && name.trim().isEmpty()) {
-            return ResponseEntity.ok(facultyRepository.findAll());
-        } else if (color.trim().isEmpty()) {
-            return ResponseEntity.ok(facultyRepository.findByNameContainingIgnoreCase(name));
-        } else if (name.trim().isEmpty()) {
-            return ResponseEntity.ok(facultyRepository.findByColorContainingIgnoreCase(color));
-        } else {
-            return ResponseEntity.ok(facultyRepository.findByNameAndColorContainingIgnoreCase(name, color));
-        }
+        if (name != null && color != null) {
+            if (color.isBlank() && name.isBlank()) {
+                return ResponseEntity.ok(facultyRepository.findAll());
+            } else if (color.isBlank()) {
+                return ResponseEntity.ok(facultyRepository.findByNameContainingIgnoreCase(name));
+            } else if (name.isBlank()) {
+                return ResponseEntity.ok(facultyRepository.findByColorContainingIgnoreCase(color));
+            } else {
+                return ResponseEntity.ok(facultyRepository.findByNameAndColorContainingIgnoreCase(name, color));
+            }
+        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
+//    @Override
+//    public ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color) {
+//        if (color.isEmpty() && name.trim().isEmpty()) {
+//            return ResponseEntity.ok(facultyRepository.findAll());
+//        } else if (color.trim().isEmpty()) {
+//            return ResponseEntity.ok(facultyRepository.findByNameContainingIgnoreCase(name));
+//        } else if (name.trim().isEmpty()) {
+//            return ResponseEntity.ok(facultyRepository.findByColorContainingIgnoreCase(color));
+//        } else {
+//            return ResponseEntity.ok(facultyRepository.findByNameAndColorContainingIgnoreCase(name, color));
+//        }
+//    }
 
     @Override
     public List<Student> findByFacultyOfStudent(Long id, String name, String color) {
