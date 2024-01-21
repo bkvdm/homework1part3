@@ -28,8 +28,6 @@ public class StudentServiceImpl implements StudentService {
     public Student findStudent(long id) {
         return studentRepository.findById(id)
                 .orElse(null);
-//        return studentRepository.findById(id).get();
-//        return studentRepository.getReferenceById(id);
     }
 
     @Override
@@ -73,26 +71,3 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
     }
 }
-//
-//    @Override
-//    public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to) {
-//        return studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to);
-//    }
-
-//    @Override
-//    public ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders) {
-//        if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isPresent()) {
-//            if (signInclusionBorders.isEmpty()) {
-//                return ResponseEntity.ok(studentRepository.findByAgeBetween(from, to));
-//            } else {
-//                return ResponseEntity.ok(studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to));
-//            }
-//        } else if (Optional.ofNullable(from).isEmpty() && Optional.ofNullable(to).isPresent()) {
-//            from = Integer.MIN_VALUE;
-//            return ResponseEntity.ok(studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to));
-//        } else if (Optional.ofNullable(from).isPresent() && Optional.ofNullable(to).isEmpty()) {
-//            to = Integer.MAX_VALUE;
-//            return ResponseEntity.ok(studentRepository.findByAgeLessThanEqualAndGreaterThanEqual(from, to));
-//        }
-//        return ResponseEntity.ok(studentRepository.findAll());
-//    }

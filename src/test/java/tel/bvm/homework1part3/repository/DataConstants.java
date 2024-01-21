@@ -5,7 +5,6 @@ import tel.bvm.homework1part3.model.Student;
 
 import java.util.*;
 
-
 public class DataConstants {
 
     public static Faculty FACULTY_1 = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", null);
@@ -136,6 +135,4 @@ public class DataConstants {
         }
         return STUDENTS_AGE_BETWEEN;
     }
-
-
 }

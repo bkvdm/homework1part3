@@ -8,15 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//import static tel.bvm.homework1part3.postConsruct.DefaultDataFaculties.faculty;
-
 @Component
 public class DefaultDataStudents {
 
     private DefaultDataStudents defaultDataStudents;
-    //    public DefaultDataStudents(DefaultDataStudents defaultDataStudents) {
-//        this.defaultDataStudents = defaultDataStudents;
-//    }
+
     private final DefaultDataFaculties defaultDataFaculties = new DefaultDataFaculties(defaultDataStudents);
 
     Student student1 = new Student(1L, "Луна Лавгуд (Luna Lovegood)", 25, defaultDataFaculties.facultyInfo(1));
@@ -49,7 +45,6 @@ public class DefaultDataStudents {
                     student12, student13, student14, student15, student16,
                     student17, student18, student19, student20, student21,
                     student22, student23, student24));
-
 
     public List<Student> studentList(Faculty faculty) {
         List<Student> studentsFaculty = new ArrayList<>();

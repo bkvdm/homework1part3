@@ -15,9 +15,6 @@ public class DefaultDataFaculties {
         this.defaultDataStudents = defaultDataStudents;
     }
 
-//    private final DefaultDataStudents defaultDataStudents = new DefaultDataStudents(defaultDataFaculties);
-
-
     Faculty faculty1 = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", null);
     Faculty faculty2 = new Faculty(2, "Гриффиндор (Gryffindor)", "Жёлтый (Yellow)", null);
     Faculty faculty3 = new Faculty(3, "Пуффендуй (Hufflepuff)", "Зелёный (Green)", null);
@@ -28,6 +25,7 @@ public class DefaultDataFaculties {
             faculty2.getId(), faculty2,
             faculty3.getId(), faculty3,
             faculty4.getId(), faculty4));
+
     public void facultyRegistry() {
         faculty1.setStudents(defaultDataStudents.studentList(faculty1));
         faculty2.setStudents(defaultDataStudents.studentList(faculty2));
@@ -35,19 +33,7 @@ public class DefaultDataFaculties {
         faculty4.setStudents(defaultDataStudents.studentList(faculty4));
     }
 
-//        facultyRegistry();
     public Faculty facultyInfo(long id) {
-//        faculty1.setStudents(defaultDataStudents.studentList(faculty1));
         return facultyMap.get(id);
     }
 }
-//            (1, "Когневран (Ravenclaw)", "Красный (Red)");
-//    Faculty faculty1 = new Faculty(2, "Гриффиндор (Gryffindor)", "Красный (Red)");
-//    1	Когневран (Ravenclaw)	Красный (Red)
-//            2	Гриффиндор (Gryffindor)	Жёлтый (Yellow)
-//            3	Пуффендуй (Hufflepuff)	Зелёный (Green)
-//            4	Слизерин (Slytherin)	Синий (Purple)
-//        facultyMap.put(faculty1.getId(), faculty1);
-//        facultyMap.put(faculty2.getId(), faculty2);
-//        facultyMap.put(faculty3.getId(), faculty3);
-//        facultyMap.put(faculty4.getId(), faculty4);

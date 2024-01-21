@@ -27,8 +27,6 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public Faculty findFaculty(long id) {
         return facultyRepository.findById(id).orElse(null);
-//        return facultyRepository.findById(id).get();
-//        return facultyRepository.getReferenceById(id);
     }
 
     @Override
@@ -71,25 +69,11 @@ public class FacultyServiceImpl implements FacultyService {
         } else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-//    @Override
-//    public ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color) {
-//        if (color.isEmpty() && name.trim().isEmpty()) {
-//            return ResponseEntity.ok(facultyRepository.findAll());
-//        } else if (color.trim().isEmpty()) {
-//            return ResponseEntity.ok(facultyRepository.findByNameContainingIgnoreCase(name));
-//        } else if (name.trim().isEmpty()) {
-//            return ResponseEntity.ok(facultyRepository.findByColorContainingIgnoreCase(color));
-//        } else {
-//            return ResponseEntity.ok(facultyRepository.findByNameAndColorContainingIgnoreCase(name, color));
-//        }
-//    }
-
     @Override
     public List<Student> findByFacultyOfStudent(Long id, String name, String color) {
         if (Optional.ofNullable(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color)).isEmpty()) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color).getStudents();
-//        return facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color);
     }
 }

@@ -25,11 +25,4 @@ public interface FacultyService {
     ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color);
 
     List<Student> findByFacultyOfStudent(Long id, String name, String color);
-
-//    Faculty findFacultyOfStudent(Student student);
-//    List<Faculty> findByNameContainingIgnoreCase(String name);
-
-//    List<Faculty> findByColorContainingIgnoreCase(String color);
-
-//    ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color);
 }

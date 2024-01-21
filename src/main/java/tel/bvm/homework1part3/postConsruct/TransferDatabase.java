@@ -20,21 +20,17 @@ public class TransferDatabase {
     private final DefaultDataFaculties defaultDataFaculties;
 
     private final DataSource dataSource;
+
     public TransferDatabase(DefaultDataStudents defaultDataStudents, DefaultDataFaculties defaultDataFaculties, DataSource dataSource) {
         this.defaultDataStudents = defaultDataStudents;
         this.defaultDataFaculties = defaultDataFaculties;
         this.dataSource = dataSource;
     }
 
-//    @Autowired
-//    private DataSource dataSource;
-//    private DataSource hogwards;
-
     @PostConstruct
     void init() throws SQLException {
         insertDataFaculties();
         insertDataStudents();
-//        insertDataIdConnect();
     }
 
     void insertDataFaculties() throws SQLException {
@@ -66,7 +62,6 @@ public class TransferDatabase {
     void insertDataStudents() throws SQLException {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(
-//                "INSERT INTO STUDENT(ID, NAME, AGE) VALUES(?, ?, ?)")) {
                 "INSERT INTO STUDENT(ID, NAME, AGE, IdFACULTY) VALUES(?, ?, ?, ?)")) {
 
             for (Student student : defaultDataStudents.studentList) {
@@ -74,7 +69,6 @@ public class TransferDatabase {
                 String name = student.getName();
                 int age = student.getAge();
                 long idFaculty = student.getFaculty().getId();
-//                Faculty faculty = student.getFaculty();
 
                 statement.setLong(1, id);
                 statement.setString(2, name);
@@ -88,35 +82,4 @@ public class TransferDatabase {
             throw new RuntimeException(e);
         }
     }
-
-
-
-//    void insertDataIdConnect() throws SQLException {
-//
-//        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(
-//                "INSERT INTO STUDENT(IDFACULTY) VALUES(?)")) {
-//
-//            for (Student student : defaultDataStudents.studentList) {
-//                long idFaculty = student.getFaculty().getId();
-//
-//                statement.setLong(4, idFaculty);
-//
-//                statement.addBatch();
-//            }
-//
-//            statement.executeBatch();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }
-//            for(Faculty faculty : defaultDataFaculties.facultyMap){
-//                long id = faculty.getId();
-//                String name = faculty.getName();
-//                String color = faculty.getColor();
-//
-//                statement.setLong(1, id);
-//                statement.setString(2, name);
-//                statement.setString(3, color);
-//                statement.addBatch();
-//            }

@@ -24,7 +24,3 @@ public interface StudentService {
 
     Faculty findByStudentOfFaculty(Long id, String name);
 }
-//    ResponseEntity<List<Student>> findByAgeIncludeBoundariesInSearchOrNo(Integer from, Integer to, String signInclusionBorders);
-
-//    List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to, String signInclusionBorders);
-//    List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);

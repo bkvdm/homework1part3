@@ -62,9 +62,9 @@ public class StudentController {
     public List<Student> findByAgeLessThanEqualAndGreaterThanEqual(@RequestParam(required = false) Integer lowerBound, @RequestParam(required = false) Integer upperBound) {
         return studentService.findByAgeLessThanEqualAndGreaterThanEqual(lowerBound, upperBound);
     }
+
     @GetMapping("/findByStudentOfFaculty/{findByStudentOfFaculty}")
     public Faculty findByStudentOfFaculty(@RequestParam(required = false) Long id, @RequestParam(required = false) String name) {
         return studentService.findByStudentOfFaculty(id, name);
     }
 }
-
