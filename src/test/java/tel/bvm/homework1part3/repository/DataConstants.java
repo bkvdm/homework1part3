@@ -21,12 +21,22 @@ public class DataConstants {
 
     public static List<Faculty> FACULTY_LIST = new ArrayList<>(FACULTY_MAP.values());
 
-//    public static List<Faculty> FACULTY_CONTAINS_NAME = new ArrayList<>(List.of(FACULTY_3));
+    public static List<Faculty> FACULTY_CONTAINS_NAME = new ArrayList<>(List.of(FACULTY_3));
 
     public static List<Faculty> filterByFragmentNameFaculty(List<Faculty> faculty, String fragment) {
         List<Faculty> FILTERED_FACULTY = new ArrayList<>();
         for (Faculty s : faculty) {
             if (s.getName().toLowerCase().contains(fragment)) {
+                FILTERED_FACULTY.add(s);
+            }
+        }
+        return FILTERED_FACULTY;
+    }
+
+    public static List<Faculty> filterByFragmentColorFaculty(List<Faculty> faculty, String fragment) {
+        List<Faculty> FILTERED_FACULTY = new ArrayList<>();
+        for (Faculty s : faculty) {
+            if (s.getColor().toLowerCase().contains(fragment)) {
                 FILTERED_FACULTY.add(s);
             }
         }

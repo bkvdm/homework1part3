@@ -108,15 +108,16 @@ class FacultyServiceImplTest {
         Mockito.verify(facultyRepository, Mockito.times(1)).findAll();
     }
 
-//    @Test
-//    void findByNameContainingIgnoreCase() {
-//        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)")).thenReturn(FACULTY_CONTAINS_NAME);
-//        facultyRepository.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
-//        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
-//    }
+    @Test
+    void findByNameContainingIgnoreCase() {
+        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)")).thenReturn(FACULTY_CONTAINS_NAME);
+        facultyRepository.findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
+        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameContainingIgnoreCase("Пуффендуй (Hufflepuff)");
+    }
 
     public static Stream<Arguments> argumentsStream() {
-        return Stream.of(Arguments.of("пУффE", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "пУффE")),
+        return Stream.of(
+                Arguments.of("пУффE", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "пУффE")),
                 Arguments.of("hUfF", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "hUfF")),
                 Arguments.of("GryF", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "GryF")),
                 Arguments.of("cлИ", DataConstants.filterByFragmentNameFaculty(FACULTY_LIST, "слИ")),
@@ -130,10 +131,35 @@ class FacultyServiceImplTest {
         assertEquals(FILTERED_FACULTY, facultyServiceImpl.findByNameContainingIgnoreCase(fragment));
     }
 
+    ///
     @Test
     void findByColorContainingIgnoreCase() {
-
+        Mockito.when(facultyServiceImpl.findByNameContainingIgnoreCase("Зелёный (Green)")).thenReturn(FACULTY_CONTAINS_NAME);
+        facultyRepository.findByNameContainingIgnoreCase("Зелёный (Green)");
+        Mockito.verify(facultyRepository, Mockito.times(1)).findByNameContainingIgnoreCase("Зелёный (Green)");
     }
+
+    public static Stream<Arguments> argumentsStreamColor() {
+        return Stream.of(
+                Arguments.of("зЕл", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "зЕл")),
+                Arguments.of("pUR", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "pUR")),
+                Arguments.of("RE", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "RE")),
+                Arguments.of("ЖёЛ", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "ЖёЛ")),
+                Arguments.of("кр", DataConstants.filterByFragmentColorFaculty(FACULTY_LIST, "кр"))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("argumentsStream")
+    void findByColorContainingIgnoreCase(String fragment, List<Faculty> FILTERED_FACULTY) {
+        assertEquals(FILTERED_FACULTY, facultyServiceImpl.findByColorContainingIgnoreCase(fragment));
+    }
+
+
+//    @Test
+//    void findByColorContainingIgnoreCase() {
+//
+//    }
 
     @Test
     void findByNameAndColorContainingIgnoreCase() {
