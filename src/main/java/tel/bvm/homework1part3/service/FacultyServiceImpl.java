@@ -90,5 +90,6 @@ public class FacultyServiceImpl implements FacultyService {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color).getStudents();
+//        return facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color);
     }
 }

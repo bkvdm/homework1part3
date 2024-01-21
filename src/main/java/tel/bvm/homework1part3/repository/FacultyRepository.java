@@ -10,6 +10,7 @@ public interface FacultyRepository extends JpaRepository<Faculty, Long> {
     List<Faculty> findByNameContainingIgnoreCase(String name);
     List<Faculty> findByColorContainingIgnoreCase(String color);
     List<Faculty> findByNameAndColorContainingIgnoreCase(String name, String color);
+//    Faculty findByIdOrNameOrColorContainingIgnoreCase(Long id, String name, String color);
     Faculty findByIdOrNameOrColorContainingIgnoreCase(Long id, String name, String color);
 }
 //    Добавить эндпоинт для поиска факультета по имени или цвету,
