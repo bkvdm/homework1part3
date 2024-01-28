@@ -20,7 +20,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 @Transactional
-public class AvatarServiceImpl implements AvatarService{
+public class AvatarServiceImpl implements AvatarService {
 
     private final AvatarRepository avatarRepository;
     private final StudentRepository studentRepository;
@@ -33,6 +33,7 @@ public class AvatarServiceImpl implements AvatarService{
         this.studentRepository = studentRepository;
     }
 
+    @Override
     public void upLoadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
         Student student = studentRepository.getById(studentId);
         Path filePath = Path.of(avatarDir, student + "." + getExceptions(avatarFile.getOriginalFilename()));
