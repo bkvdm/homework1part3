@@ -1,5 +1,6 @@
 package tel.bvm.homework1part3.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +11,11 @@ import tel.bvm.homework1part3.model.Avatar;
 import tel.bvm.homework1part3.service.AvatarService;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.MulticastChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @RestController
 @RequestMapping("avatar")
@@ -38,4 +43,20 @@ public class AvatarController {
                 .headers(headers)
                 .body(avatar.getData());
     }
+
+    @GetMapping(value = "value = /{id}/avatar")
+    public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        Avatar avatar = avatarService.findAvatar(id);
+        Path path = Path.of(avatar.getFilePath());
+
+        try (
+                InputStream is = Files.newInputStream(path);
+                OutputStream os = response.getOutputStream()) {
+            response.setStatus(200);
+            response.setContentType(avatar.getMediaType());
+            response.setContentLength((int) avatar.getFileSize());
+            is.transferTo(os);
+        }
+    }
 }
+
