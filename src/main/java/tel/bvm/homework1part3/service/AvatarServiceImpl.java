@@ -56,7 +56,8 @@ public class AvatarServiceImpl implements AvatarService {
         avatarRepository.save(avatar);
     }
 
-    private byte[] generateDataForDB(Path filePath) throws IOException {
+    @Override
+    public byte[] generateDataForDB(Path filePath) throws IOException {
         try (
                 InputStream is = Files.newInputStream(filePath);
                 BufferedInputStream bis = new BufferedInputStream(is, 1024);
@@ -74,6 +75,7 @@ public class AvatarServiceImpl implements AvatarService {
         }
     }
 
+    @Override
     public Avatar findAvatar(Long studentId) {
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
