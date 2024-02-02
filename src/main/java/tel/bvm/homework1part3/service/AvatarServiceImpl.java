@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -35,7 +36,8 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public void upLoadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
-        Student student = studentRepository.getById(studentId);
+        Student student = studentRepository.getReferenceById(studentId);
+//        Optional<Student> student = studentRepository.findById(studentId);
         Path filePath = Path.of(avatarDir, student + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
@@ -49,6 +51,8 @@ public class AvatarServiceImpl implements AvatarService {
         }
         Avatar avatar = findAvatar(studentId);
         avatar.setStudent(student);
+//        student.ifPresent(avatar::setStudent);
+//        student.ifPresent(s -> avatar.setStudent(s));
         avatar.setFilePath(filePath.toString());
         avatar.setFileSize(avatarFile.getSize());
         avatar.setMediaType(avatarFile.getContentType());
