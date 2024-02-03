@@ -179,6 +179,8 @@ public class DataConstants {
             FACULTY_2_WITH_STUDENT_INFO,
             FACULTY_3_WITH_STUDENT_INFO,
             FACULTY_4_WITH_STUDENT_INFO));
+
+    public static List<Faculty> LIST_FACULTY_2 = new ArrayList<>(List.of(FACULTY_2_WITH_STUDENT_INFO));
 }
 
 //    public static List<Student> STUDENT_LIST_INFO(Faculty faculty) {
