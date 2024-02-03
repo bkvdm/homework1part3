@@ -135,4 +135,69 @@ public class DataConstants {
         }
         return STUDENTS_AGE_BETWEEN;
     }
+
+//    public static Faculty FACULTY_1_WITH_STUDENT_INFO = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", STUDENTS_FACULTY(FACULTY_1));
+
+    //1, 2, 8, 9, 10, 24
+    public static Faculty FACULTY_1_WITH_STUDENT_INFO = new Faculty(FACULTY_1.getId(), FACULTY_1.getName(), FACULTY_1.getColor(), List.of(
+            new Student(STUDENT_1.getId(), STUDENT_1.getName(), STUDENT_1.getAge(), null),
+            new Student(STUDENT_2.getId(), STUDENT_2.getName(), STUDENT_2.getAge(), null),
+            new Student(STUDENT_8.getId(), STUDENT_8.getName(), STUDENT_8.getAge(), null),
+            new Student(STUDENT_9.getId(), STUDENT_9.getName(), STUDENT_9.getAge(), null),
+            new Student(STUDENT_10.getId(), STUDENT_10.getName(), STUDENT_10.getAge(), null),
+            new Student(STUDENT_24.getId(), STUDENT_24.getName(), STUDENT_24.getAge(), null)));
+
+    //4, 12, 14, 15, 16, 17, 18, 19, 22
+    public static Faculty FACULTY_2_WITH_STUDENT_INFO = new Faculty(FACULTY_2.getId(), FACULTY_2.getName(), FACULTY_2.getColor(), List.of(
+            new Student(STUDENT_4.getId(), STUDENT_4.getName(), STUDENT_4.getAge(), null),
+            new Student(STUDENT_12.getId(), STUDENT_12.getName(), STUDENT_12.getAge(), null),
+            new Student(STUDENT_14.getId(), STUDENT_14.getName(), STUDENT_14.getAge(), null),
+            new Student(STUDENT_15.getId(), STUDENT_15.getName(), STUDENT_15.getAge(), null),
+            new Student(STUDENT_16.getId(), STUDENT_16.getName(), STUDENT_16.getAge(), null),
+            new Student(STUDENT_17.getId(), STUDENT_17.getName(), STUDENT_17.getAge(), null),
+            new Student(STUDENT_18.getId(), STUDENT_18.getName(), STUDENT_18.getAge(), null),
+            new Student(STUDENT_19.getId(), STUDENT_19.getName(), STUDENT_19.getAge(), null),
+            new Student(STUDENT_22.getId(), STUDENT_22.getName(), STUDENT_22.getAge(), null)));
+
+    //3, 11, 21, 23
+    public static Faculty FACULTY_3_WITH_STUDENT_INFO = new Faculty(FACULTY_3.getId(), FACULTY_3.getName(), FACULTY_3.getColor(), List.of(
+            new Student(STUDENT_3.getId(), STUDENT_3.getName(), STUDENT_3.getAge(), null),
+            new Student(STUDENT_11.getId(), STUDENT_11.getName(), STUDENT_11.getAge(), null),
+            new Student(STUDENT_21.getId(), STUDENT_21.getName(), STUDENT_21.getAge(), null),
+            new Student(STUDENT_23.getId(), STUDENT_23.getName(), STUDENT_23.getAge(), null)));
+
+    //5,6,7,13,20
+    public static Faculty FACULTY_4_WITH_STUDENT_INFO = new Faculty(FACULTY_4.getId(), FACULTY_4.getName(), FACULTY_4.getColor(), List.of(
+            new Student(STUDENT_5.getId(), STUDENT_5.getName(), STUDENT_5.getAge(), null),
+            new Student(STUDENT_6.getId(), STUDENT_6.getName(), STUDENT_6.getAge(), null),
+            new Student(STUDENT_7.getId(), STUDENT_7.getName(), STUDENT_7.getAge(), null),
+            new Student(STUDENT_13.getId(), STUDENT_13.getName(), STUDENT_13.getAge(), null),
+            new Student(STUDENT_20.getId(), STUDENT_20.getName(), STUDENT_20.getAge(), null)));
+
+    public static List<Faculty> LIST_FACULTY_WITH_STUDENT_INFO = new ArrayList<>(List.of(
+            FACULTY_1_WITH_STUDENT_INFO,
+            FACULTY_2_WITH_STUDENT_INFO,
+            FACULTY_3_WITH_STUDENT_INFO,
+            FACULTY_4_WITH_STUDENT_INFO));
 }
+
+//    public static List<Student> STUDENT_LIST_INFO(Faculty faculty) {
+//        List<Student> studentsFacultyInfo = new ArrayList<>();
+//
+//        for (Student student : STUDENT_LIST) {
+//            if (student.getFaculty().equals(faculty)) {
+//                STUDENT_LIST.add(student);
+//            }
+//        }
+//        facultyRegistryStatic();
+//        return studentsFacultyInfo;
+//    }
+//
+//    public static void facultyRegistryStatic() {
+//        FACULTY_1.setStudents(STUDENT_LIST_INFO(FACULTY_1));
+//        FACULTY_2.setStudents(STUDENT_LIST_INFO(FACULTY_2));
+//        FACULTY_3.setStudents(STUDENT_LIST_INFO(FACULTY_3));
+//        FACULTY_4.setStudents(STUDENT_LIST_INFO(FACULTY_4));
+//    }
+//
+//    public static Faculty FACULTY_1_WITH_STUDENT_INFO = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", STUDENT_LIST_INFO(FACULTY_1));
