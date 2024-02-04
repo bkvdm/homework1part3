@@ -11,12 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import tel.bvm.homework1part3.model.Faculty;
+import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.DataConstants;
 
 import java.util.ArrayList;
@@ -74,6 +79,42 @@ public class FacultyServiceTest {
 
     @Test
     public void testFindByName() throws JSONException {
+        String nameFaculty = "Гриффиндор (Gryffindor)";
+
+        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/" + nameFaculty,
+                HttpMethod.GET, null, new ParameterizedTypeReference<>() {
+                });
+        List<Faculty> faculties = response.getBody();
+        assertThat(faculties).isNotNull();
+    }
+
+    @Test
+    public void testFindByNameTwo() throws JSONException {
+        String nameFaculty = "Гриффиндор (Gryffindor)";
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("name", nameFaculty);
+        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/",
+                HttpMethod.GET, new HttpEntity<>(parameters), new ParameterizedTypeReference<>() {
+                });
+        List<Faculty> faculties = response.getBody();
+        assertThat(faculties).isNotNull();
+    }
+
+}
+
+
+
+
+//                new Faculty(2, "Гриффиндор (Gryffindor)", "Жёлтый (Yellow)", List.of(
+//                        new Student(STUDENT_4.getId(), STUDENT_4.getName(), STUDENT_4.getAge(), null),
+//                        new Student(STUDENT_12.getId(), STUDENT_12.getName(), STUDENT_12.getAge(), null),
+//                        new Student(STUDENT_14.getId(), STUDENT_14.getName(), STUDENT_14.getAge(), null),
+//                        new Student(STUDENT_15.getId(), STUDENT_15.getName(), STUDENT_15.getAge(), null),
+//                        new Student(STUDENT_16.getId(), STUDENT_16.getName(), STUDENT_16.getAge(), null),
+//                        new Student(STUDENT_17.getId(), STUDENT_17.getName(), STUDENT_17.getAge(), null),
+//                        new Student(STUDENT_18.getId(), STUDENT_18.getName(), STUDENT_18.getAge(), null),
+//                        new Student(STUDENT_19.getId(), STUDENT_19.getName(), STUDENT_19.getAge(), null),
+//                        new Student(STUDENT_22.getId(), STUDENT_22.getName(), STUDENT_22.getAge(), null))));
 //        JSONArray jsonArray = new JSONArray(FACULTY_2);
 //        assertThat(this.restTemplate.getForObject("http://localhost:"
 //                + port + "/findByName/"
@@ -84,18 +125,16 @@ public class FacultyServiceTest {
 
 //        List<Faculty> faculties =
 
-                JSONArray jsonArray = new JSONArray(FACULTY_2);
-
-        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/findByName/" + FACULTY_2.getName(),
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<Faculty>>() {
-                });
-        List<Faculty> faculties = response.getBody();
-
-        assertThat(faculties)
-                .isNotNull()
-                .containsExactly(jsonArray);
-    }
-}
+//                JSONArray jsonArray = new JSONArray(FACULTY_2);
+//
+//        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/findByName/" + FACULTY_2.getName(),
+//                HttpMethod.GET, null, new ParameterizedTypeReference<List<Faculty>>() {
+//                });
+//        List<Faculty> faculties = response.getBody();
+//
+//        assertThat(faculties)
+//                .isNotNull()
+//                .containsExactly(jsonArray);
 //        List<Faculty> actualFaculties = restTemplate.exchange("/findByName/{findByName}", HttpMethod.GET, null, new ParameterizedTypeReference<List<Faculty>>() {}, FACULTY_2.getName()).getBody();
 //        Assertions.assertThat(actualFaculties).containsExactlyInAnyOrder((Faculty) LIST_FACULTY_2);
 //    Assertions.assertThat(сюда передаем лист).containsExactly(сюда передаем элементы, которые ожидаем в этом листе)
