@@ -11,10 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.*;
 //import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,17 +40,19 @@ public class FacultyServiceTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private final TestRestTemplate restTemplateLocal = new TestRestTemplate();
+
     @Autowired
     private FacultyController facultyController;
 
     @Test
     void contextLoadsFaculty() throws Exception {
-        assertThat(facultyController).isNotNull();
+        Assertions.assertThat(facultyController).isNotNull();
     }
 
     @Test
     public void testFindFacultyById() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/faculty/" + FACULTY_4_WITH_STUDENT_INFO.getId(), Faculty.class))
+        Assertions.assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/faculty/" + FACULTY_4_WITH_STUDENT_INFO.getId(), Faculty.class))
                 .isEqualTo(FACULTY_4_WITH_STUDENT_INFO);
     }
 
@@ -63,7 +63,7 @@ public class FacultyServiceTest {
 
     @Test
     public void testGetAllFaculties() {
-        assertThat(this.restTemplate.exchange(
+        Assertions.assertThat(this.restTemplate.exchange(
                 "http://localhost:" + port + "/faculty",
                 HttpMethod.GET,
                 null,
@@ -77,32 +77,137 @@ public class FacultyServiceTest {
 //        List<Faculty> response = restTemplate.getForEntity("http://localhost:" + port + "/faculty" + FACULTY_2.getName(), ArrayList.class));
 //    }
 
+//    @Test
+//    public void testFindByNameThree() {
+//        String nameFaculty = "Гриффиндор (Gryffindor)";
+//        Assertions.assertThat(this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/", nameFaculty, ArrayList.class))
+//                .isNotNull();
+//    }
+
     @Test
     public void testFindByName() throws JSONException {
-        String nameFaculty = "Гриффиндор (Gryffindor)";
-
-        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/" + nameFaculty,
+        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/" + FACULTY_2.getName(),
                 HttpMethod.GET, null, new ParameterizedTypeReference<>() {
                 });
         List<Faculty> faculties = response.getBody();
         assertThat(faculties).isNotNull();
+        assertThat(faculties).isEqualTo(LIST_FACULTY_2);
     }
 
     @Test
-    public void testFindByNameTwo() throws JSONException {
-        String nameFaculty = "Гриффиндор (Gryffindor)";
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("name", nameFaculty);
-        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/",
-                HttpMethod.GET, new HttpEntity<>(parameters), new ParameterizedTypeReference<>() {
+    public void testFindByColor() throws JSONException {
+        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByColor/" + FACULTY_3.getColor(),
+                HttpMethod.GET, null, new ParameterizedTypeReference<>() {
                 });
         List<Faculty> faculties = response.getBody();
         assertThat(faculties).isNotNull();
+        assertThat(faculties).isEqualTo(LIST_FACULTY_3);
+    }
+//Гриффиндор (Gryffindor)", "Жёлтый (Yellow)
+//        http://localhost:8080/faculty/findByNameAndColor/{findByNameAndColor}?name=%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29&color=%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29
+
+
+//    @Test
+//    public void testFindByNameAndColor() {
+//        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/?name=%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29&color=%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
+////        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29/%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
+//        var response = restTemplateLocal.getForObject(url, List.class);
+//        assertThat(response).isNotNull();
+////        System.out.println(LIST_FACULTY_2);
+//    }
+//    @Test
+//    public void testFindByNameAndColor() {
+//        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/?name=%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29&color=%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
+//        ResponseEntity<List<Faculty>> response = restTemplateLocal.exchange(url, ArrayList.class);
+//        assertThat(response).isNotNull();
+//    }
+
+    @Test
+    public void testFindByNameAndColor() {
+        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/?name=%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29&color=%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
+        ResponseEntity<List<Faculty>> response = restTemplateLocal.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Faculty>>() {
+        });
+        List<Faculty> faculties = response.getBody();
+        assertThat(response).isNotNull();
+//        assertThat(faculties).isEqualTo(LIST_FACULTY_2);
     }
 
+    @Test
+    public void testFindByFacultyOfStudent() {
+        ResponseEntity<List<Student>> response = restTemplate.exchange(
+                "http://localhost:" + port + "/faculty/findByFacultyOfStudent/?id=4&name=%D0%A1%D0%BB%D0%B8%D0%B7%D0%B5%D1%80%D0%B8%D0%BD%20%28Slytherin%29&color=%D0%A4%D0%B8%D0%BE%D0%BB%D0%B5%D1%82%D0%BE%D0%B2%D1%8B%D0%B9%20%28Purple%29",
+                HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        List<Student> students = response.getBody();
+        assertNotNull(students);
+        assertEquals(5, students.size());
+        assertThat(students).isEqualTo(STUDENTS_FACULTY_TEMPLATE(FACULTY_4));
+    }
 }
+//        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29/%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
+//        System.out.println(LIST_FACULTY_2);
+//        assertThat(response.size()).isGreaterThan(0);
+////        assertThat(response.get(0)).isEqualTo(LIST_FACULTY_2);
+//        var faculty = (Faculty) response.get(0);
+//        assertThat(faculty.getName()).isEqualTo(LIST_FACULTY_2.get(0).getName());
+//        System.out.println(response);
+//  'http://localhost:8080/faculty/findByNameAndColor/%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29/%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29'
+
+//    @Test
+//    public void testFindByNameAndColor() throws JSONException {
+//        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/findByNameAndColor/" + FACULTY_4.getColor(),
+//                HttpMethod.GET, null, new ParameterizedTypeReference<>() {
+//                });
+//        List<Faculty> faculties = response.getBody();
+//        assertThat(faculties).isNotNull();
+//        assertThat(faculties).isEqualTo(LIST_FACULTY_4);
+//    }
 
 
+//    @GetMapping("/findByNameAndColor/{findByNameAndColor}")
+//    public ResponseEntity<List<Faculty>> findByNameColorContainingIgnoreCase(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
+//        return facultyService.findByNameAndColorContainingIgnoreCase(name, color);
+//    }
+
+
+////    @Test
+////    public void testFindByName() throws JSONException {
+////        String nameFaculty = "Гриффиндор (Gryffindor)";
+////        var httpheaders = new HttpHeaders();
+////        httpheaders.setContentType(MediaType.APPLICATION_JSON);
+////        var httpentity = new HttpEntity<>(httpheaders);
+////
+////        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/" + nameFaculty,
+////                HttpMethod.GET, httpentity, new ParameterizedTypeReference<List<Faculty>>() {
+////                });
+////        List<Faculty> faculties = response.getBody();
+////        assertThat(faculties).isNotNull();
+////    }
+//
+////    @Test
+////    public void testFindByNameTwo() throws JSONException {
+////        String nameFaculty = "Гриффиндор (Gryffindor)";
+////        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+////        parameters.add("name", nameFaculty);
+////        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/",
+////                HttpMethod.GET, new HttpEntity<>(parameters), new ParameterizedTypeReference<>() {
+////                });
+////        List<Faculty> faculties = response.getBody();
+////        assertThat(faculties).isNotNull();
+////    }
+//
+//    @Test
+//    public void testFindByNameThree() throws JSONException {
+//        String nameFaculty = "Гриффиндор (Gryffindor)";
+//        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+//        parameters.add("findByName", nameFaculty);
+//        ResponseEntity<List<Faculty>> response = this.restTemplate.exchange("http://localhost:" + port + "/faculty/findByName/",
+//                HttpMethod.GET, new HttpEntity<>(parameters), new ParameterizedTypeReference<>() {
+//                });
+//        List<Faculty> faculties = response.getBody();
+//        assertThat(faculties).isNotNull();
+//    }
 
 
 //                new Faculty(2, "Гриффиндор (Gryffindor)", "Жёлтый (Yellow)", List.of(

@@ -180,7 +180,29 @@ public class DataConstants {
             FACULTY_3_WITH_STUDENT_INFO,
             FACULTY_4_WITH_STUDENT_INFO));
 
+    public static List<Faculty> LIST_FACULTY_1 = new ArrayList<>(List.of(FACULTY_1_WITH_STUDENT_INFO));
     public static List<Faculty> LIST_FACULTY_2 = new ArrayList<>(List.of(FACULTY_2_WITH_STUDENT_INFO));
+    public static List<Faculty> LIST_FACULTY_3 = new ArrayList<>(List.of(FACULTY_3_WITH_STUDENT_INFO));
+    public static List<Faculty> LIST_FACULTY_4 = new ArrayList<>(List.of(FACULTY_4_WITH_STUDENT_INFO));
+
+    public static List<Student> STUDENTS_FACULTY_TEMPLATE(Faculty faculty) {
+
+        List<Student> STUDENT_LIST = new ArrayList<>(Arrays.asList
+                (STUDENT_1, STUDENT_2, STUDENT_3, STUDENT_4, STUDENT_5, STUDENT_6,
+                        STUDENT_7, STUDENT_8, STUDENT_9, STUDENT_10, STUDENT_11,
+                        STUDENT_12, STUDENT_13, STUDENT_14, STUDENT_15, STUDENT_16,
+                        STUDENT_17, STUDENT_18, STUDENT_19, STUDENT_20, STUDENT_21,
+                        STUDENT_22, STUDENT_23, STUDENT_24));
+        List<Student> STUDENTS_FACULTY = new ArrayList<>();
+
+        for (Student student : STUDENT_LIST) {
+            if (student.getFaculty().equals(faculty)) {
+                student.setFaculty(null);
+                STUDENTS_FACULTY.add(student);
+            }
+        }
+        return STUDENTS_FACULTY;
+    }
 }
 
 //    public static List<Student> STUDENT_LIST_INFO(Faculty faculty) {
