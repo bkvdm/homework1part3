@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import tel.bvm.homework1part3.model.Student;
@@ -13,6 +15,8 @@ import tel.bvm.homework1part3.model.Student;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StudentControllerTest {
@@ -41,5 +45,15 @@ public class StudentControllerTest {
         assertEquals(STUDENT_1.getId(), student.getId());
         assertEquals(STUDENT_1.getName(), student.getName());
         assertEquals(STUDENT_1.getAge(), student.getAge());
+    }
+
+    @Test
+    public void testGetAllStudents() {
+        ResponseEntity<List<Student>> response = restTemplate.exchange("http://localhost:" + port + "/student", HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        List<Student> students = response.getBody();
+        assertNotNull(students);
+        assertEquals(24, students.size());
     }
 }
