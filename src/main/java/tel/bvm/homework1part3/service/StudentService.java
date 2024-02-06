@@ -22,5 +22,8 @@ public interface StudentService {
 
     List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);
 
-    Faculty findByStudentOfFaculty(Long id, String name);
+    //    public Faculty findByStudentOfFaculty(Long id, String name) {
+    List<Student> findByStudentOfFaculty(Long id, String name);
+
+//    Faculty findByStudentOfFaculty(Long id, String name);
 }

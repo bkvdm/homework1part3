@@ -3,7 +3,6 @@ package tel.bvm.homework1part3.service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
@@ -66,10 +65,19 @@ public class StudentServiceImpl implements StudentService {
     @Override
 //    public Faculty findByStudentOfFaculty(Long id, String name) {
     public List<Student> findByStudentOfFaculty(Long id, String name) {
-        if (Optional.ofNullable(studentRepository.findByIdOrNameIgnoreCase(id, name)).isEmpty()) {
+        if (Optional.ofNullable(studentRepository.findByFacultyIdAndFacultyNameIgnoreCase(id, name)).isEmpty()) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 //        return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
-        return studentRepository.findByIdOrNameIgnoreCase(id, name);
+        return studentRepository.findByFacultyIdAndFacultyNameIgnoreCase(id, name);
     }
+//    @Override
+////    public Faculty findByStudentOfFaculty(Long id, String name) {
+//    public List<Student> findByStudentOfFaculty(Long id, String name) {
+//        if (Optional.ofNullable(studentRepository.findByIdOrNameIgnoreCase(id, name)).isEmpty()) {
+//            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+////        return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
+//        return studentRepository.findByIdOrNameIgnoreCase(id, name);
+//    }
 }

@@ -12,7 +12,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Student findByIdOrNameIgnoreCase(Long id, String name);
 
-    List<Student> findByFacultyIdAndFacultyNameIgnoreCase(Long facultyId, String facultyName);
+    List<Student> findByFacultyIdAndFacultyNameIgnoreCase(Long id, String name);
+
+//    @Query("select s from Student s join s.faculty f where f.id=:facultyId and lower(s.name) like lower(concat('%', :facultyName, '%'))")
+//    List<Student> findByFacultyIdAndName(@Param("facultyId") Long facultyId, @Param("facultyName") String facultyName);
 
 //    StudentRepository repo;
 //    @Query(“SELECT s FROM Student s JOIN s.faculty f WHERE f.id = :facultyId AND s.name LIKE CONCAT(‘%’, :facultyName, ‘%’)”)
