@@ -124,13 +124,13 @@ public class FacultyServiceTest {
 
     @Test
     public void testFindByNameAndColor() {
-        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/?name=%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29&color=%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
-//        String url = "http://localhost:" + port + "/faculty/findByNameAndColor?name=Гриффиндор (Gryffindor)&color=Жёлтый (Yellow)";
+//        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/?name=%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29&color=%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
+        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/?name=Гриффиндор (Gryffindor)&color=Жёлтый (Yellow)";
         ResponseEntity<List<Faculty>> response = restTemplateLocal.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Faculty>>() {
         });
         List<Faculty> faculties = response.getBody();
         assertThat(response).isNotNull();
-//        assertThat(faculties).isEqualTo(LIST_FACULTY_2);
+        assertThat(faculties).isEqualTo(LIST_FACULTY_2);
     }
 
     @Test
