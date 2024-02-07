@@ -209,6 +209,7 @@ public class DataConstants {
 
         for (Student student : STUDENT_LIST) {
             if (student.getFaculty().equals(faculty)) {
+                studentsFaculty.add(student);
                 STUDENT_LIST.add(student);
             }
         }

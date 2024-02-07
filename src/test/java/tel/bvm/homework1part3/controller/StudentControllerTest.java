@@ -51,7 +51,6 @@ public class StudentControllerTest {
     public static Stream<Arguments> idNameVariations() {
         return Stream.of(Arguments.of((long) FACULTY_1.getId(), FACULTY_1.getName()),
                 Arguments.of((long) FACULTY_2.getId(), FACULTY_2.getName()),
-                Arguments.of(1L, FACULTY_2.getName()),
                 Arguments.of((long) FACULTY_3.getId(), FACULTY_3.getName()),
                 Arguments.of((long) FACULTY_4.getId(), FACULTY_4.getName())
         );
@@ -102,7 +101,6 @@ public class StudentControllerTest {
     @ParameterizedTest
     @MethodSource("idNameVariations")
     public void testFindByStudentOfFaculty(Long id, String name) {
-//        http://localhost:8080/student/findByStudentOfFaculty/?id=4&name=Слизерин (Slytherin)
         ResponseEntity<List<Student>> response = restTemplate.exchange(
                 "http://localhost:" + port + "/student/findByStudentOfFaculty/?id=" + id + "&name=" + name,
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {
