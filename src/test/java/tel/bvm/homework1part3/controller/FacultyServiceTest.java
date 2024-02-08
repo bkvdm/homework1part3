@@ -42,6 +42,9 @@ public class FacultyServiceTest {
 
     private final TestRestTemplate restTemplateLocal = new TestRestTemplate();
 
+    //    TestRestTemplate restTemplate = new TestRestTemplate();
+    private final HttpHeaders headers = new HttpHeaders();
+
     @Autowired
     private FacultyController facultyController;
 
@@ -137,13 +140,37 @@ public class FacultyServiceTest {
     public void testFindByFacultyOfStudent() {
         ResponseEntity<List<Student>> response = restTemplate.exchange(
                 "http://localhost:" + port + "/faculty/findByFacultyOfStudent/?id=4&name=%D0%A1%D0%BB%D0%B8%D0%B7%D0%B5%D1%80%D0%B8%D0%BD%20%28Slytherin%29&color=%D0%A4%D0%B8%D0%BE%D0%BB%D0%B5%D1%82%D0%BE%D0%B2%D1%8B%D0%B9%20%28Purple%29",
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
+                HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {
+                });
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         List<Student> students = response.getBody();
         assertNotNull(students);
         assertEquals(5, students.size());
         assertThat(students).isEqualTo(STUDENTS_FACULTY_TEMPLATE(FACULTY_4));
+    }
+
+    @Test
+    public void testAddFaculty() throws Exception {
+
+        Faculty faculty = new Faculty(Long.MAX_VALUE, "FacultyNameForTest", "FacultyNameForTest", null);
+        HttpEntity<Faculty> entity = new HttpEntity<>(faculty, headers);
+        ResponseEntity<Faculty> response = restTemplate.exchange(
+                new URL("http://localhost:" + port + "/").toString(), HttpMethod.POST, entity, Faculty.class);
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
+    }
+
+    @Test
+    public void testEditFaculty() {
+        // Создание объекта Faculty
+        Faculty faculty = new Faculty("Example Faculty");
+
+        // Выполнение запроса на редактирование
+        ResponseEntity<Faculty> response = restTemplate.exchange("http://localhost:" + port + "/{id}",
+                HttpMethod.PUT, new HttpEntity<>(faculty, headers), Faculty.class, 1L);
+
+        // Проверка статус кода ответа
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }
 //        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29/%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";

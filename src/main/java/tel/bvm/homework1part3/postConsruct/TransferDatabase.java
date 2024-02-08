@@ -33,11 +33,38 @@ public class TransferDatabase {
         insertDataStudents();
     }
 
+//    void insertDataFaculties() throws SQLException {
+//        final Connection connection = dataSource.getConnection();
+//
+//        try (PreparedStatement statement = connection.prepareStatement(
+//                "INSERT INTO FACULTY(ID, NAME, COLOR) VALUES(?, ?, ?)")) {
+//
+//            for (Map.Entry<Long, Faculty> entry : defaultDataFaculties.facultyMap.entrySet()) {
+//                Faculty faculty = entry.getValue();
+//                long id = faculty.getId();
+//                String name = faculty.getName();
+//                String color = faculty.getColor();
+//
+//                statement.setLong(1, id);
+//                statement.setString(2, name);
+//                statement.setString(3, color);
+//                statement.addBatch();
+//            }
+//
+//            statement.executeBatch();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            connection.close();
+//        }
+//    }
+
     void insertDataFaculties() throws SQLException {
         final Connection connection = dataSource.getConnection();
 
         try (PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO FACULTY(ID, NAME, COLOR) VALUES(?, ?, ?)")) {
+//                "INSERT INTO FACULTY(ID, NAME, COLOR) VALUES(?, ?, ?)")) {
+                "INSERT INTO FACULTY(NAME, COLOR) VALUES(?, ?)")) {
 
             for (Map.Entry<Long, Faculty> entry : defaultDataFaculties.facultyMap.entrySet()) {
                 Faculty faculty = entry.getValue();
@@ -45,9 +72,9 @@ public class TransferDatabase {
                 String name = faculty.getName();
                 String color = faculty.getColor();
 
-                statement.setLong(1, id);
-                statement.setString(2, name);
-                statement.setString(3, color);
+//                statement.setLong(1, id);
+                statement.setString(1, name);
+                statement.setString(2, color);
                 statement.addBatch();
             }
 
@@ -59,10 +86,35 @@ public class TransferDatabase {
         }
     }
 
+//    void insertDataStudents() throws SQLException {
+//
+//        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(
+//                "INSERT INTO STUDENT(ID, NAME, AGE, IdFACULTY) VALUES(?, ?, ?, ?)")) {
+//
+//            for (Student student : defaultDataStudents.studentList) {
+//                long id = student.getId();
+//                String name = student.getName();
+//                int age = student.getAge();
+//                long idFaculty = student.getFaculty().getId();
+//
+//                statement.setLong(1, id);
+//                statement.setString(2, name);
+//                statement.setInt(3, age);
+//                statement.setLong(4, idFaculty);
+//                statement.addBatch();
+//            }
+//
+//            statement.executeBatch();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
     void insertDataStudents() throws SQLException {
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO STUDENT(ID, NAME, AGE, IdFACULTY) VALUES(?, ?, ?, ?)")) {
+//                "INSERT INTO STUDENT(ID, NAME, AGE, IdFACULTY) VALUES(?, ?, ?, ?)")) {
+                "INSERT INTO STUDENT(NAME, AGE, IdFACULTY) VALUES(?, ?, ?)")) {
 
             for (Student student : defaultDataStudents.studentList) {
                 long id = student.getId();
@@ -70,10 +122,10 @@ public class TransferDatabase {
                 int age = student.getAge();
                 long idFaculty = student.getFaculty().getId();
 
-                statement.setLong(1, id);
-                statement.setString(2, name);
-                statement.setInt(3, age);
-                statement.setLong(4, idFaculty);
+//                statement.setLong(1, id);
+                statement.setString(1, name);
+                statement.setInt(2, age);
+                statement.setLong(3, idFaculty);
                 statement.addBatch();
             }
 
