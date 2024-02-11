@@ -10,16 +10,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 //import static sun.security.krb5.Confounder.intValue;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
 
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -35,6 +35,8 @@ public class StudentControllerTest {
     @Autowired
     private StudentController studentController;
 
+    private final HttpHeaders headers = new HttpHeaders();
+
     public static Stream<Arguments> fromToVariations() {
         return Stream.of(Arguments.of(13, 10),
                 Arguments.of(7, 14),
@@ -49,7 +51,7 @@ public class StudentControllerTest {
     }
 
     public static Stream<Arguments> idNameVariations() {
-        return Stream.of(Arguments.of((long)STUDENT_1.getId(), STUDENT_1.getName()),
+        return Stream.of(Arguments.of((long) STUDENT_1.getId(), STUDENT_1.getName()),
                 Arguments.of((long) STUDENT_8.getId(), STUDENT_8.getName()),
                 Arguments.of((long) STUDENT_11.getId(), STUDENT_11.getName()),
                 Arguments.of((long) STUDENT_24.getId(), STUDENT_24.getName())
@@ -152,6 +154,40 @@ public class StudentControllerTest {
         assertEquals(STUDENT_LIST.get(id.intValue() - 1).getFaculty().getColor(), facultyFound.getColor());
 //        assertEquals(studentsExpected.get(id.intValue() - 1).getId(), students.get(id.intValue() - 1).getId());
 //        assertEquals(studentsExpected.get(id.intValue() - 1).getName(), students.get(id.intValue() - 1).getName());
+    }
+
+    @Test
+    public void testAddStudent() throws Exception {
+        Student studentTest = new Student(Long.MAX_VALUE, "StudentNameForTest", 1, null);
+
+        HttpEntity<Student> entity = new HttpEntity<>(studentTest, headers);
+        ResponseEntity<Student> response = this.restTemplate.exchange(
+                new URL("http://localhost:" + port + "/student").toString(), HttpMethod.POST, entity, Student.class);
+        assertThat(response.getStatusCode()).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void editStudentReturnsUpdatedFaculty() {
+
+        Student student = new Student(25L, "EditStudentNameForTest", 2, null);
+
+        ResponseEntity<Student> response = restTemplate.exchange("http://localhost:" + port + "/student" + "/{id}", HttpMethod.PUT, new HttpEntity<>(student), Student.class, 25);
+
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getName()).isEqualTo("EditStudentNameForTest");
+//        assertThat(response.getBody().getDescription()).isEqualTo("Updated Faculty Description");
+        ResponseEntity<Void> responseEdit = restTemplate.exchange("http://localhost:" + port + "/student/" + 26, HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.OK, responseEdit.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteStudent() {
+        ResponseEntity<Void> response = restTemplate.exchange("http://localhost:" + port + "/student/" + 25, HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+//        ResponseEntity<Void> responseEdit = restTemplate.exchange("http://localhost:" + port + "/faculty/" + 6, HttpMethod.DELETE, null, Void.class);
+//        assertEquals(HttpStatus.OK, responseEdit.getStatusCode());
     }
 }
 

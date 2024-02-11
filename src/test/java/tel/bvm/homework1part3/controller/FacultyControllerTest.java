@@ -190,9 +190,9 @@ public class FacultyControllerTest {
 
 
     @Test
-    public void testDeleteFacultyAdd() {
-        ResponseEntity<Void> responseAdd = restTemplate.exchange("http://localhost:" + port + "/faculty/" + 5, HttpMethod.DELETE, null, Void.class);
-        assertEquals(HttpStatus.OK, responseAdd.getStatusCode());
+    public void testDeleteFaculty() {
+        ResponseEntity<Void> response = restTemplate.exchange("http://localhost:" + port + "/faculty/" + 5, HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 //        ResponseEntity<Void> responseEdit = restTemplate.exchange("http://localhost:" + port + "/faculty/" + 6, HttpMethod.DELETE, null, Void.class);
 //        assertEquals(HttpStatus.OK, responseEdit.getStatusCode());
     }
