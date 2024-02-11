@@ -217,6 +217,9 @@ public class DataConstants {
         }
         return studentsFaculty;
     }
+
+    public static Faculty FACULTY_5 = new Faculty(5, "TestNameFaculty", "TestColorFaculty", null);
+
 }
 
 //    public static List<Student> STUDENT_LIST_INFO(Faculty faculty) {
