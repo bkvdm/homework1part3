@@ -1,10 +1,7 @@
 package tel.bvm.homework1part3.controller;
 
 import org.assertj.core.api.Assertions;
-import org.assertj.core.util.Arrays;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,15 +10,10 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 //import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
-import tel.bvm.homework1part3.repository.DataConstants;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class FacultyServiceTest {
+public class FacultyControllerTest {
 
     @LocalServerPort
     private int port;
@@ -152,26 +144,64 @@ public class FacultyServiceTest {
 
     @Test
     public void testAddFaculty() throws Exception {
+        Faculty facultyTest = new Faculty(Long.MAX_VALUE, "FacultyNameForTest", "FacultyColorForTest", null);
+//        Student studentTest = new Student(Long.MAX_VALUE, "StudentNameForTest", 1, facultyTest);
+//        List<Student> studentsFacultyTest = List.of(studentTest);
+//        facultyTest.setStudents(studentsFacultyTest);
 
-        Faculty faculty = new Faculty(Long.MAX_VALUE, "FacultyNameForTest", "FacultyNameForTest", null);
-        HttpEntity<Faculty> entity = new HttpEntity<>(faculty, headers);
-        ResponseEntity<Faculty> response = restTemplate.exchange(
-                new URL("http://localhost:" + port + "/").toString(), HttpMethod.POST, entity, Faculty.class);
-        assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
+        HttpEntity<Faculty> entity = new HttpEntity<>(facultyTest, headers);
+        ResponseEntity<Faculty> response = this.restTemplate.exchange(
+                new URL("http://localhost:" + port + "/faculty").toString(), HttpMethod.POST, entity, Faculty.class);
+        assertThat(response.getStatusCode()).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED.value());
+//        assertThat(response.getStatusCode().isEqualTo(HttpStatus.OK));
+//        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+
+//    @Test
+//    public void testEditFaculty() {
+//        Faculty facultyTest = new Faculty(Long.MAX_VALUE, "FacultyNameForTest", "FacultyNameForTest", null);
+//        Student studentTest = new Student(Long.MAX_VALUE, "StudentNameForTest", 1, facultyTest);
+//        List<Student> studentsFacultyTest = List.of(studentTest);
+//        facultyTest.setStudents(studentsFacultyTest);
+//        ResponseEntity<Faculty> response = restTemplate.exchange("http://localhost:" + port + "/faculty/{id}",
+//                HttpMethod.PUT, new HttpEntity<>(facultyTest, headers), Faculty.class, facultyTest.getId());
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//    }
+
 
     @Test
-    public void testEditFaculty() {
-        // Создание объекта Faculty
-        Faculty faculty = new Faculty("Example Faculty");
+    public void editFacultyReturnsUpdatedFaculty() {
+        // Arrange
+//        Long id = 1L;
+        Faculty faculty = new Faculty(5, "EditFacultyNameForTest", "EditUpFacultyColorForTest", null);
 
-        // Выполнение запроса на редактирование
-        ResponseEntity<Faculty> response = restTemplate.exchange("http://localhost:" + port + "/{id}",
-                HttpMethod.PUT, new HttpEntity<>(faculty, headers), Faculty.class, 1L);
+        // Act
+        ResponseEntity<Faculty> response = restTemplate.exchange("http://localhost:" + port + "/faculty" + "/{id}", HttpMethod.PUT, new HttpEntity<>(faculty), Faculty.class, 5);
 
-        // Проверка статус кода ответа
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        // Assert
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getName()).isEqualTo("EditFacultyNameForTest");
+//        assertThat(response.getBody().getDescription()).isEqualTo("Updated Faculty Description");
+        ResponseEntity<Void> responseEdit = restTemplate.exchange("http://localhost:" + port + "/faculty/" + 5, HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.OK, responseEdit.getStatusCode());
     }
+
+
+    @Test
+    public void testDeleteFacultyAdd() {
+        ResponseEntity<Void> responseAdd = restTemplate.exchange("http://localhost:" + port + "/faculty/" + 5, HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.OK, responseAdd.getStatusCode());
+//        ResponseEntity<Void> responseEdit = restTemplate.exchange("http://localhost:" + port + "/faculty/" + 6, HttpMethod.DELETE, null, Void.class);
+//        assertEquals(HttpStatus.OK, responseEdit.getStatusCode());
+    }
+
+//    @Test
+//    public void testDeleteFacultyEdit() {
+//        ResponseEntity<Void> response = restTemplate.exchange("http://localhost:" + port + "/faculty/" + Long.MAX_VALUE, HttpMethod.DELETE, null, Void.class);
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//    }
 }
 //        String url = "http://localhost:" + port + "/faculty/findByNameAndColor/%D0%93%D1%80%D0%B8%D1%84%D1%84%D0%B8%D0%BD%D0%B4%D0%BE%D1%80%20%28Gryffindor%29/%D0%96%D1%91%D0%BB%D1%82%D1%8B%D0%B9%20%28Yellow%29";
 //        System.out.println(LIST_FACULTY_2);

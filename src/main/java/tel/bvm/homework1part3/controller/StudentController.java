@@ -64,7 +64,7 @@ public class StudentController {
     }
 
     @GetMapping("/findByStudentOfFaculty/")
-    public List<Student> findByStudentOfFaculty(@RequestParam(required = false) Long id, @RequestParam(required = false) String name) {
+    public Faculty findByStudentOfFaculty(@RequestParam(required = false) Long id, @RequestParam(required = false) String name) {
         return studentService.findByStudentOfFaculty(id, name);
     }
 }

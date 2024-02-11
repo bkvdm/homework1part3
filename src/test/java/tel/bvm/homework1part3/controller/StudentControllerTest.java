@@ -49,12 +49,25 @@ public class StudentControllerTest {
     }
 
     public static Stream<Arguments> idNameVariations() {
-        return Stream.of(Arguments.of((long) FACULTY_1.getId(), FACULTY_1.getName()),
-                Arguments.of((long) FACULTY_2.getId(), FACULTY_2.getName()),
-                Arguments.of((long) FACULTY_3.getId(), FACULTY_3.getName()),
-                Arguments.of((long) FACULTY_4.getId(), FACULTY_4.getName())
+        return Stream.of(Arguments.of((long)STUDENT_1.getId(), STUDENT_1.getName()),
+                Arguments.of((long) STUDENT_8.getId(), STUDENT_8.getName()),
+                Arguments.of((long) STUDENT_11.getId(), STUDENT_11.getName()),
+                Arguments.of((long) STUDENT_24.getId(), STUDENT_24.getName())
+
+//                        FACULTY_1.getId(), FACULTY_1.getName()),
+//                Arguments.of((long) FACULTY_2.getId(), FACULTY_2.getName()),
+//                Arguments.of((long) FACULTY_3.getId(), FACULTY_3.getName()),
+//                Arguments.of((long) FACULTY_4.getId(), FACULTY_4.getName())
         );
     }
+
+    //    public static Stream<Arguments> idNameVariations() {
+//        return Stream.of(Arguments.of((long) FACULTY_1.getId(), FACULTY_1.getName()),
+//                Arguments.of((long) FACULTY_2.getId(), FACULTY_2.getName()),
+//                Arguments.of((long) FACULTY_3.getId(), FACULTY_3.getName()),
+//                Arguments.of((long) FACULTY_4.getId(), FACULTY_4.getName())
+//        );
+//    }
     @Test
     void contextLoadsStudent() throws Exception {
         Assertions.assertThat(studentController).isNotNull();
@@ -89,7 +102,8 @@ public class StudentControllerTest {
 
         ResponseEntity<List<Student>> response = restTemplate.exchange(
                 "http://localhost:" + port + "/student/findByAgeBetween/?from=" + from + "&to=" + to,
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
+                HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {
+                });
         List<Student> students = response.getBody();
 
         assertNotNull(students);
@@ -98,21 +112,46 @@ public class StudentControllerTest {
         }
     }
 
+    //    @ParameterizedTest
+//    @MethodSource("idNameVariations")
+//    public void testFindByStudentOfFaculty(Long id, String name) {
+//        ResponseEntity<List<Student>> response = restTemplate.exchange(
+//                "http://localhost:" + port + "/student/findByStudentOfFaculty/?id=" + id + "&name=" + name,
+//                HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {
+//                });
+//        List<Student> students = response.getBody();
+//
+//        List<Student> studentsExpected = LIST_FACULTY_WITH_STUDENT_INFO.get(id.intValue() - 1).getStudents();
+//
+//        assertNotNull(students);
+//        assertEquals(studentsExpected.size(), students.size());
+//        assertEquals(studentsExpected.get(id.intValue() - 1).getId(), students.get(id.intValue() - 1).getId());
+//        assertEquals(studentsExpected.get(id.intValue() - 1).getName(), students.get(id.intValue() - 1).getName());
+//    }
     @ParameterizedTest
     @MethodSource("idNameVariations")
     public void testFindByStudentOfFaculty(Long id, String name) {
-        ResponseEntity<List<Student>> response = restTemplate.exchange(
+        ResponseEntity<Faculty> response = restTemplate.exchange(
                 "http://localhost:" + port + "/student/findByStudentOfFaculty/?id=" + id + "&name=" + name,
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {
+                HttpMethod.GET, null, new ParameterizedTypeReference<Faculty>() {
                 });
-        List<Student> students = response.getBody();
 
-        Faculty facultyExpected = FACULTY_INFO(id);
-        List<Student> studentsExpected = STUDENT_LIST_TEMPLATE(facultyExpected);
+        Faculty facultyFound = response.getBody();
+        assertNotNull(facultyFound);
+//        assertNotNull(studentFound);
+//        Faculty facultyFound = studentFound.getFaculty();
 
-        assertNotNull(students);
-        assertEquals(studentsExpected.get(id.intValue() - 1).getId(), students.get(id.intValue() - 1).getId());
-        assertEquals(studentsExpected.get(id.intValue() - 1).getName(), students.get(id.intValue() - 1).getName());
+//        List<Student> studentsExpected = LIST_FACULTY_WITH_STUDENT_INFO.get(id.intValue() - 1).getStudents();
+//        Faculty facultyExpected =
+
+//        assertNotNull(facultyFound);
+//        assertEquals();
+//        assertEquals(studentsExpected.size(), students.size());
+        assertEquals(STUDENT_LIST.get(id.intValue() - 1).getFaculty().getId(), facultyFound.getId());
+        assertEquals(STUDENT_LIST.get(id.intValue() - 1).getFaculty().getName(), facultyFound.getName());
+        assertEquals(STUDENT_LIST.get(id.intValue() - 1).getFaculty().getColor(), facultyFound.getColor());
+//        assertEquals(studentsExpected.get(id.intValue() - 1).getId(), students.get(id.intValue() - 1).getId());
+//        assertEquals(studentsExpected.get(id.intValue() - 1).getName(), students.get(id.intValue() - 1).getName());
     }
 }
 
