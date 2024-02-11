@@ -1,28 +1,23 @@
 package tel.bvm.homework1part3.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.repository.FacultyRepository;
-import tel.bvm.homework1part3.service.AvatarService;
 import tel.bvm.homework1part3.service.AvatarServiceImpl;
 import tel.bvm.homework1part3.service.FacultyServiceImpl;
 
-import java.util.Optional;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -42,8 +37,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tel.bvm.homework1part3.repository.DataConstants.*;
 //import com.google.gson.Gson;
 
-@WebMvcTest
-public class FacultyControllerTestMVC {
+@SpringBootTest
+@AutoConfigureMockMvc
+//@WebMvcTest
+public class FacultyControllerTestMvc {
 
     @Autowired
     private MockMvc mockMvc;
@@ -54,8 +51,8 @@ public class FacultyControllerTestMVC {
     @SpyBean
     private FacultyServiceImpl facultyServiceImpl;
 
-//    @SpyBean
-//    private AvatarServiceImpl avatarServiceImpl;
+    @SpyBean
+    private AvatarServiceImpl avatarServiceImpl;
 
 //    @MockBean
 //    private AvatarServiceImpl avatarServiceImpl;
@@ -80,12 +77,12 @@ public class FacultyControllerTestMVC {
                         .content(userObject.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
-//                .andExpect(jsonPath("$.id").value(FACULTY_5))
-//                .andExpect(jsonPath("$.name").value(FACULTY_5))
-//                .andExpect(jsonPath("$.color").value(FACULTY_5))
-//                .andExpect(jsonPath("$.students").value(FACULTY_5));
+                .andExpect(status().isOk())
+//                .andExpect(MockMvcResultMatchers.status().isCreated());
+                .andExpect(jsonPath("$.id").value(FACULTY_5.getId()))
+                .andExpect(jsonPath("$.name").value(FACULTY_5.getName()))
+                .andExpect(jsonPath("$.color").value(FACULTY_5.getColor()))
+                .andExpect(jsonPath("$.students").value(FACULTY_5.getStudents()));
     }
 
 //    @Test
