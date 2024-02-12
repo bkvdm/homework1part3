@@ -219,6 +219,9 @@ public class DataConstants {
     }
 
     public static Faculty FACULTY_5 = new Faculty(5, "TestNameFaculty", "TestColorFaculty", null);
+    public static Student STUDENT_25 = new Student(25L, "TestNameStudent", 75, FACULTY_INFO(3));
+
+
 
 }
 

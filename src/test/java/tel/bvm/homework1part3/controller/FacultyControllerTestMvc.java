@@ -11,11 +11,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.repository.FacultyRepository;
 import tel.bvm.homework1part3.service.AvatarServiceImpl;
 import tel.bvm.homework1part3.service.FacultyServiceImpl;
+
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
@@ -83,6 +86,19 @@ public class FacultyControllerTestMvc {
                 .andExpect(jsonPath("$.name").value(FACULTY_5.getName()))
                 .andExpect(jsonPath("$.color").value(FACULTY_5.getColor()))
                 .andExpect(jsonPath("$.students").value(FACULTY_5.getStudents()));
+    }
+
+    @Test
+    public void testGetStudentInfo() throws Exception {
+
+        when(facultyRepository.findById(1L)).thenReturn(Optional.ofNullable(FACULTY_1));
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/faculty/" + FACULTY_1.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(FACULTY_1.getId()))
+                .andExpect(jsonPath("$.name").value(FACULTY_1.getName()))
+                .andExpect(jsonPath("$.color").value(FACULTY_1.getColor()))
+                .andExpect(jsonPath("$.students").value(FACULTY_1.getStudents()));
     }
 
 //    @Test

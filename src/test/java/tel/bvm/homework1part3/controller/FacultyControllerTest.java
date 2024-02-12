@@ -19,7 +19,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.springframework.test.util.AssertionErrors.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
 
