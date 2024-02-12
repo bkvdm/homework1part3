@@ -180,6 +180,12 @@ public class DataConstants {
             FACULTY_3_WITH_STUDENT_INFO,
             FACULTY_4_WITH_STUDENT_INFO));
 
+    public static List<Faculty> EXPECTED_LIST_FACULTY_WITH_STUDENT_INFO = new ArrayList<>(List.of(
+            FACULTY_1_WITH_STUDENT_INFO,
+            FACULTY_2_WITH_STUDENT_INFO,
+            FACULTY_3_WITH_STUDENT_INFO,
+            FACULTY_4_WITH_STUDENT_INFO));
+
     public static List<Faculty> LIST_FACULTY_1 = new ArrayList<>(List.of(FACULTY_1_WITH_STUDENT_INFO));
     public static List<Faculty> LIST_FACULTY_2 = new ArrayList<>(List.of(FACULTY_2_WITH_STUDENT_INFO));
     public static List<Faculty> LIST_FACULTY_3 = new ArrayList<>(List.of(FACULTY_3_WITH_STUDENT_INFO));

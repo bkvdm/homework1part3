@@ -18,10 +18,12 @@ import tel.bvm.homework1part3.repository.FacultyRepository;
 import tel.bvm.homework1part3.service.AvatarServiceImpl;
 import tel.bvm.homework1part3.service.FacultyServiceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -137,6 +139,19 @@ public class FacultyControllerTestMvc {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+    @Test
+    public void testGetAllFaculties() throws Exception {
+        List<Faculty> actualFaculties = LIST_FACULTY_WITH_STUDENT_INFO;
+        when(facultyRepository.findAll()).thenReturn(LIST_FACULTY_WITH_STUDENT_INFO);
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/faculty")
+                .accept(MediaType.APPLICATION_JSON));
+
+        assertEquals(EXPECTED_LIST_FACULTY_WITH_STUDENT_INFO.size(), actualFaculties.size());
+        for (int i = 0; i < EXPECTED_LIST_FACULTY_WITH_STUDENT_INFO.size(); i++) {
+            assertEquals(EXPECTED_LIST_FACULTY_WITH_STUDENT_INFO.get(i).getName(), actualFaculties.get(i).getName());
+        }
     }
 }
 
