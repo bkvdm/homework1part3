@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 import tel.bvm.homework1part3.service.AvatarServiceImpl;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.springframework.http.MediaType;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -126,5 +128,19 @@ public class StudentControllerTestMvc {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetAllFaculties() throws Exception {
+        List<Student> actualStudents = STUDENT_LIST;
+        when(studentRepository.findAll()).thenReturn(STUDENT_LIST);
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/student")
+                .accept(MediaType.APPLICATION_JSON));
+
+        assertEquals(STUDENT_LIST.size(), actualStudents.size());
+        for (int i = 0; i < STUDENT_LIST.size(); i++) {
+            assertEquals(STUDENT_LIST.get(i).getName(), actualStudents.get(i).getName());
+        }
     }
 }
