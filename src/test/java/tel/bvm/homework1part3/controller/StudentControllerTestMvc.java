@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 import tel.bvm.homework1part3.service.AvatarServiceImpl;
@@ -27,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.springframework.http.MediaType;
+
+import java.util.Optional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -71,5 +75,18 @@ public class StudentControllerTestMvc {
                 .andExpect(jsonPath("$.name").value(STUDENT_25.getName()))
                 .andExpect(jsonPath("$.age").value(STUDENT_25.getAge()));
 //                .andExpect(jsonPath("$.faculty").value(STUDENT_25.getFaculty()));
+    }
+
+    @Test
+    public void testGetStudentInfo() throws Exception {
+
+        when(studentRepository.findById(11L)).thenReturn(Optional.ofNullable(STUDENT_11));
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/student/" + STUDENT_11.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(STUDENT_11.getId()))
+                .andExpect(jsonPath("$.name").value(STUDENT_11.getName()))
+                .andExpect(jsonPath("$.age").value(STUDENT_11.getAge()));
     }
 }

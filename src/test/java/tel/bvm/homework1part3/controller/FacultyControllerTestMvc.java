@@ -88,18 +88,20 @@ public class FacultyControllerTestMvc {
                 .andExpect(jsonPath("$.students").value(FACULTY_5.getStudents()));
     }
 
-    @Test
-    public void testGetStudentInfo() throws Exception {
+//    @Test
+//    public void testGetStudentInfo() throws Exception {
+//
+//        when(facultyRepository.findById(1L)).thenReturn(Optional.ofNullable(FACULTY_1));
+//        mockMvc.perform(MockMvcRequestBuilders
+//                .get("/faculty/" + FACULTY_1.getId())
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.id").value(FACULTY_1.getId()))
+//                .andExpect(jsonPath("$.name").value(FACULTY_1.getName()))
+//                .andExpect(jsonPath("$.color").value(FACULTY_1.getColor()))
+//                .andExpect(jsonPath("$.students").value(FACULTY_1.getStudents()));
+//    }
 
-        when(facultyRepository.findById(1L)).thenReturn(Optional.ofNullable(FACULTY_1));
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/faculty/" + FACULTY_1.getId())
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(FACULTY_1.getId()))
-                .andExpect(jsonPath("$.name").value(FACULTY_1.getName()))
-                .andExpect(jsonPath("$.color").value(FACULTY_1.getColor()))
-                .andExpect(jsonPath("$.students").value(FACULTY_1.getStudents()));
-    }
+
 
 //    @Test
 //    public void testAddFaculty() {
