@@ -153,6 +153,19 @@ public class FacultyControllerTestMvc {
             assertEquals(EXPECTED_LIST_FACULTY_WITH_STUDENT_INFO.get(i).getName(), actualFaculties.get(i).getName());
         }
     }
+
+    @Test
+    public void testFindByName() throws Exception {
+        List<Faculty> actualFaculties = LIST_FACULTY_4;
+        when(facultyRepository.findByNameContainingIgnoreCase(FACULTY_4.getName())).thenReturn(LIST_FACULTY_4);
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/faculty/" + FACULTY_4.getName())
+                .accept(MediaType.APPLICATION_JSON));
+        assertEquals(LIST_FACULTY_4.size(), actualFaculties.size());
+        for (int i = 0; i < LIST_FACULTY_4.size(); i++) {
+            assertEquals(LIST_FACULTY_4.get(i).getName(), actualFaculties.get(i).getName());
+        }
+    }
 }
 
 
