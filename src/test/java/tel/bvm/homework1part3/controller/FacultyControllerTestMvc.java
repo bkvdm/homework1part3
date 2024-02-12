@@ -34,6 +34,7 @@ import static org.mockito.Mockito.when;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 //import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -88,19 +89,41 @@ public class FacultyControllerTestMvc {
                 .andExpect(jsonPath("$.students").value(FACULTY_5.getStudents()));
     }
 
-//    @Test
-//    public void testGetStudentInfo() throws Exception {
-//
-//        when(facultyRepository.findById(1L)).thenReturn(Optional.ofNullable(FACULTY_1));
-//        mockMvc.perform(MockMvcRequestBuilders
-//                .get("/faculty/" + FACULTY_1.getId())
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.id").value(FACULTY_1.getId()))
-//                .andExpect(jsonPath("$.name").value(FACULTY_1.getName()))
-//                .andExpect(jsonPath("$.color").value(FACULTY_1.getColor()))
-//                .andExpect(jsonPath("$.students").value(FACULTY_1.getStudents()));
-//    }
+    @Test
+    public void testGetStudentInfo() throws Exception {
 
+        when(facultyRepository.findById(1L)).thenReturn(Optional.ofNullable(FACULTY_1));
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/faculty/" + FACULTY_1.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(FACULTY_1.getId()))
+                .andExpect(jsonPath("$.name").value(FACULTY_1.getName()))
+                .andExpect(jsonPath("$.color").value(FACULTY_1.getColor()))
+                .andExpect(jsonPath("$.students").value(FACULTY_1.getStudents()));
+    }
+
+    @Test
+    public void testEditFaculty() throws Exception {
+        Faculty facultyEdit = new Faculty(2L, "NewNameOfFaculty", "NewColorOfFaculty", null);
+        JSONObject userObject = new JSONObject();
+        userObject.put("id", facultyEdit.getId());
+        userObject.put("name", facultyEdit.getName());
+        userObject.put("color", facultyEdit.getColor());
+        userObject.put("students", null);
+
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(facultyEdit);
+
+        mockMvc.perform(put("/faculty/" + facultyEdit.getId())
+                        .content(userObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(facultyEdit.getId()))
+                .andExpect(jsonPath("$.name").value(facultyEdit.getName()))
+                .andExpect(jsonPath("$.color").value(facultyEdit.getColor()))
+                .andExpect(jsonPath("$.students").value(facultyEdit.getStudents()));
+    }
+}
 
 
 //    @Test
@@ -120,7 +143,6 @@ public class FacultyControllerTestMvc {
 //        mockMvc.perform(post("/faculty").content(objectMapper.toString()).contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(MockMvcResultMatchers.status().isCreated());
 
-}
 //        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(FACULTY_5));
 
 //        Faculty faculty = new Faculty(123, "NameFacultyAddTest", "ColorFacultyAddTest", null);
