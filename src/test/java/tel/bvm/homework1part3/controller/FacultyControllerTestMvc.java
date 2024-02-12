@@ -166,6 +166,19 @@ public class FacultyControllerTestMvc {
             assertEquals(LIST_FACULTY_4.get(i).getName(), actualFaculties.get(i).getName());
         }
     }
+
+    @Test
+    public void testFindByColor() throws Exception {
+        List<Faculty> actualFaculties = LIST_FACULTY_1;
+        when(facultyRepository.findByNameContainingIgnoreCase(FACULTY_1.getName())).thenReturn(LIST_FACULTY_1);
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/faculty/" + FACULTY_1.getColor())
+                .accept(MediaType.APPLICATION_JSON));
+        assertEquals(LIST_FACULTY_1.size(), actualFaculties.size());
+        for (int i = 0; i < LIST_FACULTY_1.size(); i++) {
+            assertEquals(LIST_FACULTY_1.get(i).getColor(), actualFaculties.get(i).getColor());
+        }
+    }
 }
 
 
