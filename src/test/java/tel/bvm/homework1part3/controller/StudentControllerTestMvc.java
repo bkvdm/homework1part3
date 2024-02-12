@@ -15,6 +15,8 @@ import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 import tel.bvm.homework1part3.service.AvatarServiceImpl;
 import tel.bvm.homework1part3.service.StudentServiceImpl;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static tel.bvm.homework1part3.repository.DataConstants.*;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.springframework.http.MediaType;
 
@@ -88,5 +89,42 @@ public class StudentControllerTestMvc {
                 .andExpect(jsonPath("$.id").value(STUDENT_11.getId()))
                 .andExpect(jsonPath("$.name").value(STUDENT_11.getName()))
                 .andExpect(jsonPath("$.age").value(STUDENT_11.getAge()));
+    }
+
+    @Test
+    public void testEditFaculty() throws Exception {
+        Student studentEdit = new Student(10L, "NewNameOfStudent", 48, null);
+        JSONObject userObject = new JSONObject();
+        userObject.put("id", studentEdit.getId());
+        userObject.put("name", studentEdit.getName());
+        userObject.put("age", studentEdit.getAge());
+
+        when(studentRepository.save(any(Student.class))).thenReturn(studentEdit);
+
+        mockMvc.perform(put("/student/" + studentEdit.getId())
+                        .content(userObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(studentEdit.getId()))
+            .andExpect(jsonPath("$.name").value(studentEdit.getName()))
+            .andExpect(jsonPath("$.age").value(studentEdit.getAge()));
+    }
+
+    @Test
+    public void testDeleteStudent() throws Exception {
+
+        JSONObject userObject = new JSONObject();
+        userObject.put("id", STUDENT_9.getId());
+        userObject.put("name", STUDENT_9.getName());
+        userObject.put("age", STUDENT_9.getAge());
+
+        when(studentRepository.save(any(Student.class))).thenReturn(STUDENT_25);
+
+        mockMvc.perform(delete("/student/" + STUDENT_9.getId())
+                        .content(userObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

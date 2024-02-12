@@ -33,8 +33,7 @@ import static org.mockito.Mockito.when;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 //import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -91,7 +90,6 @@ public class FacultyControllerTestMvc {
 
     @Test
     public void testGetStudentInfo() throws Exception {
-
         when(facultyRepository.findById(1L)).thenReturn(Optional.ofNullable(FACULTY_1));
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty/" + FACULTY_1.getId())
@@ -122,6 +120,23 @@ public class FacultyControllerTestMvc {
                 .andExpect(jsonPath("$.name").value(facultyEdit.getName()))
                 .andExpect(jsonPath("$.color").value(facultyEdit.getColor()))
                 .andExpect(jsonPath("$.students").value(facultyEdit.getStudents()));
+    }
+
+    @Test
+    public void testDeleteFaculty() throws Exception {
+        JSONObject userObject = new JSONObject();
+        userObject.put("id", FACULTY_2.getId());
+        userObject.put("name", FACULTY_2.getName());
+        userObject.put("color", FACULTY_2.getColor());
+        userObject.put("students", FACULTY_2.getStudents());
+
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(FACULTY_2);
+
+        mockMvc.perform(delete("/faculty/" + FACULTY_2.getId())
+                        .content(userObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
 
