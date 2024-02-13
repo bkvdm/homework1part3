@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tel.bvm.homework1part3.model.Faculty;
+import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.FacultyRepository;
 import tel.bvm.homework1part3.service.AvatarServiceImpl;
 import tel.bvm.homework1part3.service.FacultyServiceImpl;
@@ -194,8 +195,25 @@ public class FacultyControllerTestMvc {
         }
     }
 
-
+    @Test
+    public void testFindByFacultyOfStudent() throws Exception {
+        List<Student> actualStudents = FACULTY_1_WITH_STUDENT_INFO.getStudents();
+        when(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(FACULTY_1_WITH_STUDENT_INFO.getId(),
+                FACULTY_1_WITH_STUDENT_INFO.getName(),
+                FACULTY_1_WITH_STUDENT_INFO.getColor())).thenReturn(FACULTY_1_WITH_STUDENT_INFO);
+//                .thenReturn(FACULTY_1_WITH_STUDENT_INFO.getStudents());
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/faculty/" + FACULTY_1_WITH_STUDENT_INFO.getId() +
+                        FACULTY_1_WITH_STUDENT_INFO.getName() +
+                        FACULTY_1_WITH_STUDENT_INFO.getColor())
+                .accept(MediaType.APPLICATION_JSON));
+        assertEquals(FACULTY_1_WITH_STUDENT_INFO.getStudents().size(), actualStudents.size());
+        for (int i = 0; i < FACULTY_1_WITH_STUDENT_INFO.getStudents().size(); i++) {
+            assertEquals(FACULTY_1_WITH_STUDENT_INFO.getStudents(), actualStudents);
+        }
+    }
 }
+//Optional.ofNullable(facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color)).isEmpty())
 
 
 //    @Test

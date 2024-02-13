@@ -1,5 +1,7 @@
 package tel.bvm.homework1part3.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -8,7 +10,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tel.bvm.homework1part3.model.Faculty;
@@ -32,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.springframework.http.MediaType;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,9 +113,9 @@ public class StudentControllerTestMvc {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(studentEdit.getId()))
-            .andExpect(jsonPath("$.name").value(studentEdit.getName()))
-            .andExpect(jsonPath("$.age").value(studentEdit.getAge()));
+                .andExpect(jsonPath("$.id").value(studentEdit.getId()))
+                .andExpect(jsonPath("$.name").value(studentEdit.getName()))
+                .andExpect(jsonPath("$.age").value(studentEdit.getAge()));
     }
 
     @Test
@@ -144,4 +149,25 @@ public class StudentControllerTestMvc {
         }
     }
 
+    @Test
+    public void testFindStudentByAgeBetween() throws Exception {
+        List<Student> expectedStudents = Arrays.asList(
+                new Student(1L, "TestNameStudentOne", 20, null),
+                new Student(2L, "TestNameStudentTwo", 22, null)
+        );
+
+        int from = 20;
+        int to = 25;
+        when(studentRepository.findByAgeBetween(from, to)).thenReturn(expectedStudents);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/student/findByAgeBetween/?from=20&to=25")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        MockHttpServletResponse response = result.getResponse();
+        String jsonResponse = response.getContentAsString();
+        List<Student> actualStudents = objectMapper.readValue(jsonResponse, new TypeReference<List<Student>>() {});
+        assertEquals(expectedStudents, actualStudents);
+    }
 }
