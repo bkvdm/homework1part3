@@ -136,8 +136,6 @@ public class DataConstants {
         return STUDENTS_AGE_BETWEEN;
     }
 
-//    public static Faculty FACULTY_1_WITH_STUDENT_INFO = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", STUDENTS_FACULTY(FACULTY_1));
-
     //1, 2, 8, 9, 10, 24
     public static Faculty FACULTY_1_WITH_STUDENT_INFO = new Faculty(FACULTY_1.getId(), FACULTY_1.getName(), FACULTY_1.getColor(), List.of(
             new Student(STUDENT_1.getId(), STUDENT_1.getName(), STUDENT_1.getAge(), null),
@@ -191,8 +189,6 @@ public class DataConstants {
     public static List<Faculty> LIST_FACULTY_3 = new ArrayList<>(List.of(FACULTY_3_WITH_STUDENT_INFO));
     public static List<Faculty> LIST_FACULTY_4 = new ArrayList<>(List.of(FACULTY_4_WITH_STUDENT_INFO));
 
-
-
     public static List<Student> STUDENTS_FACULTY_TEMPLATE(Faculty faculty) {
 
         List<Student> STUDENT_LIST = new ArrayList<>(Arrays.asList
@@ -226,28 +222,4 @@ public class DataConstants {
 
     public static Faculty FACULTY_5 = new Faculty(5, "TestNameFaculty", "TestColorFaculty", null);
     public static Student STUDENT_25 = new Student(25L, "TestNameStudent", 75, FACULTY_INFO(3));
-
-
-
 }
-
-//    public static List<Student> STUDENT_LIST_INFO(Faculty faculty) {
-//        List<Student> studentsFacultyInfo = new ArrayList<>();
-//
-//        for (Student student : STUDENT_LIST) {
-//            if (student.getFaculty().equals(faculty)) {
-//                STUDENT_LIST.add(student);
-//            }
-//        }
-//        facultyRegistryStatic();
-//        return studentsFacultyInfo;
-//    }
-//
-//    public static void facultyRegistryStatic() {
-//        FACULTY_1.setStudents(STUDENT_LIST_INFO(FACULTY_1));
-//        FACULTY_2.setStudents(STUDENT_LIST_INFO(FACULTY_2));
-//        FACULTY_3.setStudents(STUDENT_LIST_INFO(FACULTY_3));
-//        FACULTY_4.setStudents(STUDENT_LIST_INFO(FACULTY_4));
-//    }
-//
-//    public static Faculty FACULTY_1_WITH_STUDENT_INFO = new Faculty(1, "Когневран (Ravenclaw)", "Красный (Red)", STUDENT_LIST_INFO(FACULTY_1));

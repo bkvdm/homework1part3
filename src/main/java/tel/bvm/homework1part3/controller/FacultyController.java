@@ -61,17 +61,11 @@ public class FacultyController {
     public List<Faculty> findByColorContainingIgnoreCase(@PathVariable("findByColor") String color) {
         return facultyService.findByColorContainingIgnoreCase(color);
     }
-    //    @GetMapping("/findByNameAndColor/{findByName}/{findByColor}")
-//    @GetMapping("/findByNameAndColor/{findByNameAndColor}")
+
     @GetMapping("/findByNameAndColor/")
     public ResponseEntity<List<Faculty>> findByNameColorContainingIgnoreCase(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         return facultyService.findByNameAndColorContainingIgnoreCase(name, color);
     }
-//    @GetMapping("/findByNameAndColor/{name}/{color}")
-//    public ResponseEntity<List<Faculty>> findByNameColorContainingIgnoreCase(@PathVariable String name,
-//                                                                             @PathVariable String color) {
-//        return facultyService.findByNameAndColorContainingIgnoreCase(name, color);
-//    }
 
     @GetMapping("/findByFacultyOfStudent/")
     public List<Student> findByFacultyOfStudent(@RequestParam(required = false) Long id, @RequestParam(required = false) String name, @RequestParam(required = false) String color) {

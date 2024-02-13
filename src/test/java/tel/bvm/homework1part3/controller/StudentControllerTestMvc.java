@@ -69,7 +69,6 @@ public class StudentControllerTestMvc {
         userObject.put("id", STUDENT_25.getId());
         userObject.put("name", STUDENT_25.getName());
         userObject.put("age", STUDENT_25.getAge());
-//        userObject.put("faculty", STUDENT_25.getFaculty());
 
         when(studentRepository.save(any(Student.class))).thenReturn(STUDENT_25);
 
@@ -78,11 +77,9 @@ public class StudentControllerTestMvc {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-//                .andExpect(MockMvcResultMatchers.status().isCreated());
                 .andExpect(jsonPath("$.id").value(STUDENT_25.getId()))
                 .andExpect(jsonPath("$.name").value(STUDENT_25.getName()))
                 .andExpect(jsonPath("$.age").value(STUDENT_25.getAge()));
-//                .andExpect(jsonPath("$.faculty").value(STUDENT_25.getFaculty()));
     }
 
     @Test

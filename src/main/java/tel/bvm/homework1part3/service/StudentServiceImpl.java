@@ -68,26 +68,6 @@ public class StudentServiceImpl implements StudentService {
         if (Optional.ofNullable(studentRepository.findByIdOrNameIgnoreCase(id, name)).isEmpty()) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-//        return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
         return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
     }
-//    @Override
-////    public Faculty findByStudentOfFaculty(Long id, String name) {
-//    public List<Student> findByStudentOfFaculty(Long id, String name) {
-//        if (Optional.ofNullable(studentRepository.findByFacultyIdAndFacultyNameIgnoreCase(id, name)).isEmpty()) {
-//            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-////        return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
-//        return studentRepository.findByFacultyIdAndFacultyNameIgnoreCase(id, name);
-//    }
-
-//    @Override
-////    public Faculty findByStudentOfFaculty(Long id, String name) {
-//    public List<Student> findByStudentOfFaculty(Long id, String name) {
-//        if (Optional.ofNullable(studentRepository.findByIdOrNameIgnoreCase(id, name)).isEmpty()) {
-//            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-////        return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
-//        return studentRepository.findByIdOrNameIgnoreCase(id, name);
-//    }
 }
