@@ -1,6 +1,7 @@
 package tel.bvm.homework1part3.service;
 
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,8 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 public class AvatarServiceImpl implements AvatarService {
 
     private final AvatarRepository avatarRepository;
+
+    @Autowired
     private final StudentRepository studentRepository;
 
     @Value("@{path.to.avatars.folder}")

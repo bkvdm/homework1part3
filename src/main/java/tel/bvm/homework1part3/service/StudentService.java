@@ -23,4 +23,10 @@ public interface StudentService {
     List<Student> findByAgeLessThanEqualAndGreaterThanEqual(Integer from, Integer to);
 
     Faculty findByStudentOfFaculty(Long id, String name);
+
+    int countStudents();
+//
+//    int averageAge();
+//
+//    List<Student> getLastFiveStudents();
 }

@@ -70,4 +70,20 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentRepository.findByIdOrNameIgnoreCase(id, name).getFaculty();
     }
+
+    @Override
+    public int countStudents() {
+        return studentRepository.countStudents();
+//        return studentRepository.count();
+    }
+//
+//    @Override
+//    public int averageAge() {
+//        return studentRepository.averageAge();
+//    }
+//
+//    @Override
+//    public List<Student> getLastFiveStudents() {
+//        return studentRepository.getLastFiveStudents();
+//    }
 }
