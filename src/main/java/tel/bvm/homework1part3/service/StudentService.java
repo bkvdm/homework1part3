@@ -30,5 +30,5 @@ public interface StudentService {
 
     List<Student> getLastFiveStudents();
 
-    List<Student> getAllStudents(Integer pageSize, Integer pageNumber);
+    List<Student> getAllStudents(Integer pageNumber, Integer pageSize);
 }

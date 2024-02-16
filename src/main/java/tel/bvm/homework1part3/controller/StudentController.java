@@ -86,7 +86,7 @@ public class StudentController {
         return ResponseEntity.ok(lastFive);
     }
 
-    @GetMapping("/page-list")
+    @GetMapping("/page-list-students")
     public ResponseEntity<List<Student>> getAllStudents(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize) {
         List<Student> students = studentService.getAllStudents(pageNumber, pageSize);
         return ResponseEntity.ok(students);

@@ -1,5 +1,6 @@
 package tel.bvm.homework1part3.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -87,7 +88,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudents(Integer pageSize, Integer pageNumber) {
-        return studentRepository.findAll();
+    public List<Student> getAllStudents(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return studentRepository.findAll(pageRequest).getContent();
     }
 }
