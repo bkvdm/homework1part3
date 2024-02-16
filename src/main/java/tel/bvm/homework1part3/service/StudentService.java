@@ -25,8 +25,10 @@ public interface StudentService {
     Faculty findByStudentOfFaculty(Long id, String name);
 
     int countStudents();
-//
-//    int averageAge();
-//
-//    List<Student> getLastFiveStudents();
+
+    int averageAge();
+
+    List<Student> getLastFiveStudents();
+
+    List<Student> getAllStudents(Integer pageSize, Integer pageNumber);
 }

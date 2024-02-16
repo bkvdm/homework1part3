@@ -67,21 +67,28 @@ public class StudentController {
     public Faculty findByStudentOfFaculty(@RequestParam(required = false) Long id, @RequestParam(required = false) String name) {
         return studentService.findByStudentOfFaculty(id, name);
     }
+
     @GetMapping("/count")
     public ResponseEntity<Integer> countStudents() {
         int count = studentService.countStudents();
         return ResponseEntity.ok(count);
     }
-//
-//    @GetMapping("/average-age")
-//    public ResponseEntity<Integer> averageAge() {
-//        int average = studentService.averageAge();
-//        return ResponseEntity.ok(average);
-//    }
-//
-//    @GetMapping("/last-five")
-//    public ResponseEntity<List<Student>> getLastFiveStudents() {
-//        List<Student> lastFive = studentService.getLastFiveStudents();
-//        return ResponseEntity.ok(lastFive);
-//    }
+
+    @GetMapping("/average-age")
+    public ResponseEntity<Integer> averageAge() {
+        int average = studentService.averageAge();
+        return ResponseEntity.ok(average);
+    }
+
+    @GetMapping("/last-five")
+    public ResponseEntity<List<Student>> getLastFiveStudents() {
+        List<Student> lastFive = studentService.getLastFiveStudents();
+        return ResponseEntity.ok(lastFive);
+    }
+
+    @GetMapping("/page-list")
+    public ResponseEntity<List<Student>> getAllStudents(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+        List<Student> students = studentService.getAllStudents(pageNumber, pageSize);
+        return ResponseEntity.ok(students);
+    }
 }

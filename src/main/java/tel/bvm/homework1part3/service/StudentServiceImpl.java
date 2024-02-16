@@ -74,16 +74,20 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int countStudents() {
         return studentRepository.countStudents();
-//        return studentRepository.count();
     }
-//
-//    @Override
-//    public int averageAge() {
-//        return studentRepository.averageAge();
-//    }
-//
-//    @Override
-//    public List<Student> getLastFiveStudents() {
-//        return studentRepository.getLastFiveStudents();
-//    }
+
+    @Override
+    public int averageAge() {
+        return studentRepository.averageAge();
+    }
+
+    @Override
+    public List<Student> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents();
+    }
+
+    @Override
+    public List<Student> getAllStudents(Integer pageSize, Integer pageNumber) {
+        return studentRepository.findAll();
+    }
 }
