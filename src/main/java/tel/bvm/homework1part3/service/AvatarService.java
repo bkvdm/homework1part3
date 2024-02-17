@@ -9,7 +9,7 @@ import java.nio.file.Path;
 public interface AvatarService {
     void upLoadAvatar(Long studentId, MultipartFile avatarFile) throws IOException;
 
-    byte[] generateDataForDB(Path filePath) throws IOException;
+//    byte[] generateDataForDB(Path filePath) throws IOException;
 
     Avatar findAvatar(Long studentId);
 }

@@ -1,5 +1,6 @@
 package tel.bvm.homework1part3.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Avatar {
     @Lob
     private byte[] data;
     @OneToOne
+    @JsonIgnore
     private Student student;
     public Avatar() {
     }
@@ -74,3 +76,18 @@ public class Avatar {
         this.student = student;
     }
 }
+//    @Id
+////    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//    private String filePath;
+//    private long fileSize;
+//    private String mediaType;
+//    @Lob
+//    private byte[] data;
+//    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "id")
+//    @JsonIgnore
+//    private Student student;
+//    public Avatar() {
+//    }

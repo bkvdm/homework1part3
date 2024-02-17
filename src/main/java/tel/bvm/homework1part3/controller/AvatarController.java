@@ -32,6 +32,7 @@ public class AvatarController {
         return ResponseEntity.ok().build();
     }
 
+
     @GetMapping(value = "/{id}/avatar/preview")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long id) {
         Avatar avatar = avatarService.findAvatar(id);
@@ -44,14 +45,13 @@ public class AvatarController {
                 .body(avatar.getData());
     }
 
-    @GetMapping(value = "value = /{id}/avatar")
+    @GetMapping(value = "/{id}/avatar")
     public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Avatar avatar = avatarService.findAvatar(id);
         Path path = Path.of(avatar.getFilePath());
 
-        try (
-                InputStream is = Files.newInputStream(path);
-                OutputStream os = response.getOutputStream()) {
+        try (InputStream is = Files.newInputStream(path);
+             OutputStream os = response.getOutputStream()) {
             response.setStatus(200);
             response.setContentType(avatar.getMediaType());
             response.setContentLength((int) avatar.getFileSize());
@@ -60,3 +60,16 @@ public class AvatarController {
     }
 }
 
+//    @GetMapping(value = "/{id}/avatar/preview")
+//    public ResponseEntity<String> downloadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException{
+////        Avatar avatar = avatarService.findAvatar(id);
+////        HttpHeaders headers = new HttpHeaders();
+////        headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
+////        headers.setContentLength(avatar.getData().length);
+////        return ResponseEntity
+////                .status(HttpStatus.OK)
+////                .headers(headers)
+////                .body(avatar.getData());
+//        avatarService.upLoadAvatar(id, avatar);
+//        return ResponseEntity.ok().build();
+//    }

@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Optional;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
@@ -29,7 +30,7 @@ public class AvatarServiceImpl implements AvatarService {
     @Autowired
     private final StudentRepository studentRepository;
 
-    @Value("@{path.to.avatars.folder}")
+    @Value("${path.to.avatars.folder}")
     private String avatarDir;
 
     public AvatarServiceImpl(AvatarRepository avatarRepository, StudentRepository studentRepository) {
@@ -41,12 +42,18 @@ public class AvatarServiceImpl implements AvatarService {
     public void upLoadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
         Student student = studentRepository.getReferenceById(studentId);
 //        Optional<Student> student = studentRepository.findById(studentId);
-        Path filePath = Path.of(avatarDir, student + "." + getExtensions(avatarFile.getOriginalFilename()));
-        Files.createDirectories(filePath.getParent());
+        Path filePath = Path.of(avatarDir, student.getName() + "." + getExtensions(avatarFile.getOriginalFilename()));
+
+        if (!Files.exists(filePath.getParent())) {
+            Files.createDirectories(filePath.getParent());
+        }
+//        Files.createDirectories(filePath.getParent());
+
         Files.deleteIfExists(filePath);
         try (
                 InputStream is = avatarFile.getInputStream();
-                OutputStream os = Files.newOutputStream(filePath, CREATE_NEW);
+                OutputStream os = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW);
+//                OutputStream os = Files.newOutputStream(filePath, CREATE_NEW);
                 BufferedInputStream bis = new BufferedInputStream(is, 1024);
                 BufferedOutputStream bos = new BufferedOutputStream(os, 1024)
         ) {
@@ -63,12 +70,11 @@ public class AvatarServiceImpl implements AvatarService {
         avatarRepository.save(avatar);
     }
 
-    @Override
-    public byte[] generateDataForDB(Path filePath) throws IOException {
-        try (
-                InputStream is = Files.newInputStream(filePath);
-                BufferedInputStream bis = new BufferedInputStream(is, 1024);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+    //    @Override
+    private byte[] generateDataForDB(Path filePath) throws IOException {
+        try (InputStream is = Files.newInputStream(filePath);
+             BufferedInputStream bis = new BufferedInputStream(is, 1024);
+             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             BufferedImage image = ImageIO.read(bis);
 
             int height = image.getHeight() / (image.getWidth() / 100);
@@ -87,7 +93,7 @@ public class AvatarServiceImpl implements AvatarService {
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
-    private String getExtensions(String filename) {
-        return filename.substring(filename.lastIndexOf(".") + 1);
+    private String getExtensions(String fileName) {
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 }
