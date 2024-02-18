@@ -141,6 +141,7 @@ public class FacultyControllerTestMvc {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
     @Test
     public void testGetAllFaculties() throws Exception {
         List<Faculty> actualFaculties = LIST_FACULTY_WITH_STUDENT_INFO;

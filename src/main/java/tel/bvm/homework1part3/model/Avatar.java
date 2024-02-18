@@ -16,6 +16,7 @@ public class Avatar {
     @OneToOne
     @JsonIgnore
     private Student student;
+
     public Avatar() {
     }
 
@@ -76,18 +77,3 @@ public class Avatar {
         this.student = student;
     }
 }
-//    @Id
-////    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//    private String filePath;
-//    private long fileSize;
-//    private String mediaType;
-//    @Lob
-//    private byte[] data;
-//    @OneToOne
-//    @MapsId
-//    @JoinColumn(name = "id")
-//    @JsonIgnore
-//    private Student student;
-//    public Avatar() {
-//    }

@@ -102,7 +102,7 @@ public class FacultyControllerTest {
         List<Student> students = response.getBody();
         assertNotNull(students);
         assertEquals(5, students.size());
-        assertThat(students).isEqualTo(STUDENTS_FACULTY_TEMPLATE(FACULTY_4));
+        assertThat(students).isEqualTo(studentFacultyTemplate(FACULTY_4));
     }
 
     @Test

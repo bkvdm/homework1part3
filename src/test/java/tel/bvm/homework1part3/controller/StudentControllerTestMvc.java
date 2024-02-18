@@ -164,7 +164,8 @@ public class StudentControllerTestMvc {
         ObjectMapper objectMapper = new ObjectMapper();
         MockHttpServletResponse response = result.getResponse();
         String jsonResponse = response.getContentAsString();
-        List<Student> actualStudents = objectMapper.readValue(jsonResponse, new TypeReference<List<Student>>() {});
+        List<Student> actualStudents = objectMapper.readValue(jsonResponse, new TypeReference<List<Student>>() {
+        });
         assertEquals(expectedStudents, actualStudents);
     }
 }

@@ -1,6 +1,5 @@
 package tel.bvm.homework1part3.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,12 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.HttpClientErrorException;
-import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
-import tel.bvm.homework1part3.repository.DataConstants;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -93,8 +89,8 @@ class StudentServiceImplTest {
     @ParameterizedTest
     @MethodSource("argumentsAgeBetween")
     void findByAgeBetweenVerify(int from, int to) {
-        Mockito.when(studentRepository.findByAgeBetween(from, to)).thenReturn(STUDENTS_AGE_BETWEEN(from, to));
-        assertEquals(STUDENTS_AGE_BETWEEN(from, to), studentServiceImpl.findByAgeBetween(from, to));
+        Mockito.when(studentRepository.findByAgeBetween(from, to)).thenReturn(studentAgeBetween(from, to));
+        assertEquals(studentAgeBetween(from, to), studentServiceImpl.findByAgeBetween(from, to));
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tel.bvm.homework1part3.model.Avatar;
+import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.service.AvatarService;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.io.OutputStream;
 import java.nio.channels.MulticastChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("avatar")
@@ -31,7 +33,6 @@ public class AvatarController {
         avatarService.upLoadAvatar(id, avatar);
         return ResponseEntity.ok().build();
     }
-
 
     @GetMapping(value = "/{id}/avatar/preview")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long id) {
@@ -58,18 +59,10 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
-}
 
-//    @GetMapping(value = "/{id}/avatar/preview")
-//    public ResponseEntity<String> downloadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException{
-////        Avatar avatar = avatarService.findAvatar(id);
-////        HttpHeaders headers = new HttpHeaders();
-////        headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
-////        headers.setContentLength(avatar.getData().length);
-////        return ResponseEntity
-////                .status(HttpStatus.OK)
-////                .headers(headers)
-////                .body(avatar.getData());
-//        avatarService.upLoadAvatar(id, avatar);
-//        return ResponseEntity.ok().build();
-//    }
+    @GetMapping("/page-list-avatar")
+    public ResponseEntity<List<Avatar>> getAllAvatar(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+        List<Avatar> avatar = avatarService.getAllAvatar(pageNumber, pageSize);
+        return ResponseEntity.ok(avatar);
+    }
+}

@@ -20,7 +20,7 @@ public class AvatarControllerTest {
     private AvatarController avatarController;
 
     @Test
-    void contextLoadsAvatar() throws Exception{
+    void contextLoadsAvatar() throws Exception {
         Assertions.assertThat(avatarController).isNotNull();
     }
 }
