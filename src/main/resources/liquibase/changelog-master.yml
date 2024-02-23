@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/scripts/users.sql
+
+#databaseChangeLog:
+#  - changeSet:
+#      id: create-index-on-student-name
+#      author: bkvdm
+#      changes:
+#        - createIndex:
+#            tableName: Student
+#            columns:
+#              - column:
+#                  name: name
+#
+#  - changeSet:
+#      id: create-index-on-faculty-name-color
+#      author: bkvdm
+#      changes:
+#        - createIndex:
+#            tableName: Faculty
+#            columns:
+#              - column:
+#                  name: name
+#              - column:
+#                  name: color
