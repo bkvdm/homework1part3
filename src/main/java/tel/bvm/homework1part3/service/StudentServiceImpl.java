@@ -88,21 +88,25 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int countStudents() {
+        logger.info("Method countStudents is called.");
         return studentRepository.countStudents();
     }
 
     @Override
     public int averageAge() {
+        logger.info("Method averageAge is called.");
         return studentRepository.averageAge();
     }
 
     @Override
     public List<Student> getLastFiveStudents() {
+        logger.info("Method getLastFiveStudents is called.");
         return studentRepository.getLastFiveStudents();
     }
 
     @Override
     public List<Student> getAllStudents(Integer pageNumber, Integer pageSize) {
+        logger.info("Method getAllStudents is called with pageNumber: " + pageNumber + " and pageSize: " + pageSize);
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return studentRepository.findAll(pageRequest).getContent();
     }
