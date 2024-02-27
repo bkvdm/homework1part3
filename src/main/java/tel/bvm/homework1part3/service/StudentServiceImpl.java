@@ -10,8 +10,10 @@ import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -109,5 +111,18 @@ public class StudentServiceImpl implements StudentService {
         logger.info("Method getAllStudents is called with pageNumber: " + pageNumber + " and pageSize: " + pageSize);
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return studentRepository.findAll(pageRequest).getContent();
+    }
+
+    public Optional<List<String>> getAllStudentsStartWithKey(String startWithKey) {
+        List<String> studentsStartWithKey = studentRepository.findAll().stream()
+                .map(s -> s.getName())
+                .filter(s -> s.startsWith(startWithKey))
+                .map(s -> s.toUpperCase())
+                .sorted()
+                .collect(Collectors.toList());
+        if (studentsStartWithKey.isEmpty()) {
+            throw new RuntimeException("Students whose name begins with " + startWithKey + " are not found at Hogwarts School");
+        }
+        return Optional.of(studentsStartWithKey);
     }
 }
