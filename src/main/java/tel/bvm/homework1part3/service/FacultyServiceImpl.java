@@ -9,6 +9,7 @@ import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.FacultyRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,5 +92,13 @@ public class FacultyServiceImpl implements FacultyService {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return facultyRepository.findByIdOrNameOrColorContainingIgnoreCase(id, name, color).getStudents();
+    }
+
+    @Override
+    public Integer longestFacultyName() {
+        return facultyRepository.findAll().stream()
+                .map(f -> f.getName().length())
+                .max(Comparator.naturalOrder())
+                .orElse(0);
     }
 }

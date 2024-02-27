@@ -71,4 +71,9 @@ public class FacultyController {
     public List<Student> findByFacultyOfStudent(@RequestParam(required = false) Long id, @RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         return facultyService.findByFacultyOfStudent(id, name, color);
     }
+
+    @GetMapping("/longestFacultyName")
+    public ResponseEntity<Integer> longestFacultyName() {
+        return ResponseEntity.ok(facultyService.longestFacultyName());
+    }
 }

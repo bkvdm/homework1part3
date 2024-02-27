@@ -25,4 +25,6 @@ public interface FacultyService {
     ResponseEntity<List<Faculty>> findByNameAndColorContainingIgnoreCase(String name, String color);
 
     List<Student> findByFacultyOfStudent(Long id, String name, String color);
+
+    Integer longestFacultyName();
 }
