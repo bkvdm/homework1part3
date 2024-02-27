@@ -8,6 +8,7 @@ import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.service.StudentService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
@@ -90,5 +91,15 @@ public class StudentController {
     public ResponseEntity<List<Student>> getAllStudents(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize) {
         List<Student> students = studentService.getAllStudents(pageNumber, pageSize);
         return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/studentsNameStartWith")
+    public Optional<List<String>> getAllStudentsNameStartWith(@RequestParam("startWithKey") String startWithKey) {
+        return studentService.getAllStudentsStartWithKey(startWithKey);
+    }
+
+    @GetMapping("/getAverageAgeOfStudent")
+    public ResponseEntity<Double> getAverageAgeOfStudent() {
+        return ResponseEntity.ok(studentService.getAverageAgeOfStudent());
     }
 }

@@ -10,7 +10,6 @@ import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 import tel.bvm.homework1part3.repository.StudentRepository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -113,6 +112,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll(pageRequest).getContent();
     }
 
+    @Override
     public Optional<List<String>> getAllStudentsStartWithKey(String startWithKey) {
         List<String> studentsStartWithKey = studentRepository.findAll().stream()
                 .map(s -> s.getName())
@@ -124,5 +124,13 @@ public class StudentServiceImpl implements StudentService {
             throw new RuntimeException("Students whose name begins with " + startWithKey + " are not found at Hogwarts School");
         }
         return Optional.of(studentsStartWithKey);
+    }
+
+    @Override
+    public Double getAverageAgeOfStudent() {
+        return studentRepository.findAll().stream()
+                .mapToDouble(s -> s.getAge())
+                .average()
+                .orElseThrow(() -> new RuntimeException("There is no data to calculate the average age of students at Hogwarts School"));
     }
 }

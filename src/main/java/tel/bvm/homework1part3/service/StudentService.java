@@ -5,6 +5,7 @@ import tel.bvm.homework1part3.model.Faculty;
 import tel.bvm.homework1part3.model.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentService {
 
@@ -31,4 +32,8 @@ public interface StudentService {
     List<Student> getLastFiveStudents();
 
     List<Student> getAllStudents(Integer pageNumber, Integer pageSize);
+
+    Optional<List<String>> getAllStudentsStartWithKey(String startWithKey);
+
+    Double getAverageAgeOfStudent();
 }
