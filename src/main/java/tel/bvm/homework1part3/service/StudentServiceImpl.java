@@ -25,6 +25,8 @@ public class StudentServiceImpl implements StudentService {
 
     Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
+    public final Object flag = new Object();
+
     @Override
     public Student addStudent(Student student) {
         logger.info("Calling addStudent method with student: {}", student);
@@ -134,7 +136,108 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new RuntimeException("There is no data to calculate the average age of students at Hogwarts School"));
     }
 
+    @Override
     public String studentsPrintParallel() {
-        return studentRepository.findAll().;
+        long startTime = System.currentTimeMillis();
+        studentRepository.findAll().parallelStream().forEach(student -> System.out.println(student.getName()));
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        return "Имена всех студентов школы Хогвардс выведены в консоль в параллельном режиме за: " + elapsedTime + " (мс)";
+    }
+
+    @Override
+    public String studentsPrintThreadSynchronized() {
+        long startTime = System.currentTimeMillis();
+        List<Student> students = studentRepository.findAll();
+        if (students.size() <= 1) {
+            throw new RuntimeException("Количество студентов недостаточно, чтобы применение потоков было оправданным");
+
+        } else if (students.size() % 2 == 0) {
+            for (int a = 0; a < students.size(); a = a + 2) {
+                int b = a;
+                new Thread(() -> {
+                    doPrintStudent(students.get(b).getName());
+                    doPrintStudent(students.get(b + 1).getName());
+                }).start();
+            }
+        } else {
+            for (int a = 0; a < students.size(); a = a + 3) {
+                int b = a;
+                new Thread(() -> {
+                    doPrintStudent(students.get(b).getName());
+                    doPrintStudent(students.get(b + 1).getName());
+                    doPrintStudent(students.get(b + 2).getName());
+                }).start();
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        return "Имена всех студентов школы Хогвардс выведены синхронизировано за: " + elapsedTime + " (мс)";
+    }
+
+    @Override
+    public String studentsPrintParallelThread() {
+        long startTime = System.currentTimeMillis();
+        List<Student> students = studentRepository.findAll();
+        if (students.size() <= 1) {
+            throw new RuntimeException("Количество студентов недостаточно, чтобы применение потоков было оправданным");
+
+        } else if (students.size() % 2 == 0 && students.size() == 2) {
+            for (int a = 0; a < students.size(); a = a + 2) {
+                int b = a;
+                new Thread(() -> {
+                    System.out.println(students.get(b).getName());
+                    System.out.println(students.get(b + 1).getName());
+                }).start();
+            }
+        } else if (students.size() % 2 != 0 && students.size() == 3) {
+            for (int a = 0; a < students.size(); a = a + 3) {
+                int b = a;
+                new Thread(() -> {
+                    System.out.println(students.get(b).getName());
+                    System.out.println(students.get(b + 1).getName());
+                    System.out.println(students.get(b + 2).getName());
+                }).start();
+            }
+        } else if (students.size() % 2 == 0) {
+            for (int a = 0; a < students.size(); a = a + 2) {
+                int b = a;
+                new Thread(() -> {
+                    System.out.println(students.get(b).getName());
+                    System.out.println(students.get(b + 1).getName());
+                }).start();
+                if (students.size() - a > 2) {
+                    new Thread(() -> {
+                        System.out.println(students.get(b + 2).getName());
+                        System.out.println(students.get(b + 3).getName());
+                    }).start();
+                }
+            }
+        } else {
+            for (int a = 0; a < students.size(); a = a + 3) {
+                int b = a;
+                new Thread(() -> {
+                    System.out.println(students.get(b).getName());
+                    System.out.println(students.get(b + 1).getName());
+                    System.out.println(students.get(b + 2).getName());
+                }).start();
+                if (students.size() - a > 3) {
+                    new Thread(() -> {
+                        System.out.println(students.get(b + 3).getName());
+                        System.out.println(students.get(b + 4).getName());
+                        System.out.println(students.get(b + 5).getName());
+                    }).start();
+                }
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        return "Имена всех студентов школы Хогвардс выведены в консоль параллельно (используется не более 2 потоков) за: " + elapsedTime + " (мс)";
+    }
+
+    public void doPrintStudent(String studentName) {
+        synchronized (flag) {
+            System.out.println(studentName);
+        }
     }
 }

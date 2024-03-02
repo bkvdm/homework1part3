@@ -102,4 +102,19 @@ public class StudentController {
     public ResponseEntity<Double> getAverageAgeOfStudent() {
         return ResponseEntity.ok(studentService.getAverageAgeOfStudent());
     }
+
+    @GetMapping("/students/print-parallel-without-thread")
+    public String studentsPrintParallel() {
+        return studentService.studentsPrintParallel();
+    }
+
+    @GetMapping("/students/print-synchronized")
+    public String studentsPrintThreadSynchronized() {
+        return studentService.studentsPrintThreadSynchronized();
+    }
+
+    @GetMapping("/students/print-parallel")
+    public String studentsPrintParallelThread() {
+        return studentService.studentsPrintParallelThread();
+    }
 }

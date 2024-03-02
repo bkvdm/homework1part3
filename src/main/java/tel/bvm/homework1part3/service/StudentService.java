@@ -36,4 +36,10 @@ public interface StudentService {
     Optional<List<String>> getAllStudentsStartWithKey(String startWithKey);
 
     Double getAverageAgeOfStudent();
+
+    String studentsPrintParallel();
+
+    String studentsPrintThreadSynchronized();
+
+    String studentsPrintParallelThread();
 }
