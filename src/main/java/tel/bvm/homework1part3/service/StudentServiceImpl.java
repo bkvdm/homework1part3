@@ -133,4 +133,8 @@ public class StudentServiceImpl implements StudentService {
                 .average()
                 .orElseThrow(() -> new RuntimeException("There is no data to calculate the average age of students at Hogwarts School"));
     }
+
+    public String studentsPrintParallel() {
+        return studentRepository.findAll().;
+    }
 }
